@@ -1,13 +1,13 @@
 import React from "react";
 
-function MoveMoney() {
+function DepositChecks() {
     function hello() {
         console.log('hello');
     }
 
     return (
         <div>
-            <h1>MoveMoney</h1>
+            <h1>DepositChecks</h1>
             <form onSubmit={hello}>
                 <button>submit</button>
             </form>
@@ -16,4 +16,4 @@ function MoveMoney() {
 }
 
 
-export default MoveMoney;
+export default DepositChecks;

@@ -1,13 +1,14 @@
 import React from "react";
 
-function MoveMoney() {
-    function hello() {
+function CreditCard() {
+    function hello(e) {
+        e.preventDefault();
         console.log('hello');
     }
 
     return (
         <div>
-            <h1>MoveMoney</h1>
+            <h1>CreditCard</h1>
             <form onSubmit={hello}>
                 <button>submit</button>
             </form>
@@ -16,4 +17,4 @@ function MoveMoney() {
 }
 
 
-export default MoveMoney;
+export default CreditCard;
