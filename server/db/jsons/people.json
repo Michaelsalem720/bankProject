@@ -1,0 +1,10 @@
+{
+    "tableName":"people",
+    "columns":[
+        {
+            "name":"id",
+            "type":"INTEGER"
+        }
+        
+    ]
+}
