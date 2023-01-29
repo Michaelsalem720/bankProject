@@ -1,14 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Outlet, outlet } from 'react-router-dom'
+
 // import {  } from "react";
 
-function Navigation() {
+function Header() {
     return (
         <div>
-            <h1>Navigation</h1>
+            <h1>Header</h1>
         </div>
+        
     )
 }
 
 
-export default Navigation;
+export default Header;

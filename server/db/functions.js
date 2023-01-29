@@ -1,7 +1,8 @@
 
 const fs = require('fs');
-const con = require("./con");
+const con = require('./con');
 const mysql = require('mysql');
+
 let dbfunctions = {
     createDB: (name) => {
         con.connect(err => {
@@ -27,4 +28,5 @@ let dbfunctions = {
         })
     },
 }
+
 // dbfunctions.createDB('bankData')

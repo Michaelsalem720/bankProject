@@ -1,0 +1,40 @@
+{
+    "table": "people",
+    "columns": [
+        {
+            "column-name": "id",
+            "type": "INT",
+            "special-attributes": "primary key auto_increment"
+        },
+        {
+            "column-name": "first_name",
+            "type": "VARCHAR(31)",
+            "special-attributes": "NOT NULL"
+        },
+        {
+            "column-name": "last_name",
+            "type": "VARCHAR(31)",
+            "special-attributes": "NOT NULL"
+        },
+        {
+            "column-name": "username",
+            "type": "VARCHAR(63)",
+            "special-attributes": "NOT NULL"
+        },
+        {
+            "column-name": "email",
+            "type": "VARCHAR(63)",
+            "special-attributes": "NOT NULL UNIQUE"
+        },
+        {
+            "column-name": "phone",
+            "type": "INT",
+            "special-attributes": "NOT NULL UNIQUE"
+        },
+        {
+            "column-name": "dob",
+            "type": "DATE",
+            "special-attributes": "NOT NULL"
+        }
+    ]
+}
