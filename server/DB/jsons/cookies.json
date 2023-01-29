@@ -1,0 +1,30 @@
+{
+    "table": "cookies",
+    "columns": [
+        {
+            "column-name": "id",
+            "type": "INT",
+            "special-attributes": "primary key auto_increment"
+        },
+        {
+            "column-name": "user_id",
+            "type": "INT",
+            "special-attributes": "NOT NULL UNIQUE"
+        },
+        {
+            "column-name": "cookie",
+            "type": "VARCHAR(63)",
+            "special-attributes": "NOT NULL UNIQUE"
+        },
+        {
+            "column-name": "date",
+            "type": "DATETIME",
+            "special-attributes": "NOT NULL"
+        },
+        {
+            "column-name": "permissions",
+            "type": "TINYINT(1)",
+            "special-attributes": "NOT NULL"
+        }
+    ]
+}

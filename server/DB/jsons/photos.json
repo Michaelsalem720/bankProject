@@ -1,0 +1,20 @@
+{
+    "table": "photos",
+    "columns": [
+        {
+            "column-name": "id",
+            "type": "INT",
+            "special-attributes": "primary key auto_increment"
+        },
+        {
+            "column-name": "path",
+            "type": "VARCHAR(255)",
+            "special-attributes": "NOT NULL UNIQUE"
+        },
+        {
+            "column-name": "name",
+            "type": "VARCHAR(31)",
+            "special-attributes": "NOT NULL"
+        }
+    ]
+}

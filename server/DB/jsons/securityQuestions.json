@@ -1,0 +1,35 @@
+{
+    "table": "security_questions",
+    "columns": [
+        {
+            "column-name": "id",
+            "type": "INT",
+            "special-attributes": "primary key auto_increment"
+        },
+        {
+            "column-name": "user_id",
+            "type": "INT",
+            "special-attributes": "NOT NULL UNIQUE"
+        },
+        {
+            "column-name": "q1",
+            "type": "VARCHAR(127)",
+            "special-attributes": "NOT NULL"
+        },
+        {
+            "column-name": "a1",
+            "type": "VARCHAR(31)",
+            "special-attributes": "NOT NULL"
+        },
+        {
+            "column-name": "q2",
+            "type": "VARCHAR(127)",
+            "special-attributes": "NOT NULL"
+        },
+        {
+            "column-name": "a2",
+            "type": "VARCHAR(31)",
+            "special-attributes": "NOT NULL"
+        }
+    ]
+}
