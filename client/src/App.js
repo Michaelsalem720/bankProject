@@ -1,13 +1,12 @@
-// import logo from './logo.svg';
-import './App.css';
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Login from './components/Login';
-import Register from './components/Register';
-import Home from './components/Home';
-import { useState } from 'react';
+import { Link, Route, Routes, Navigate } from "react-router-dom";
+import React from "react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import UserId from "./context/UserId";
+
 
 function App() {
   const [userId, setUserId] = useState(null);
@@ -34,13 +33,4 @@ function App() {
 
 export default App;
 
-// <Header />
-// <Routes>
-//   <Route path='/' >
-//     <Route index element={<Home/>} />
-//     <Route path='login' element={<Login />} />
-//     <Route path='about' element={<About />} />
-//     <Route path='*' element={<Page404 />} />
-//   </Route>
-// </Routes>
-// <Footer />
+
