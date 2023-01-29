@@ -1,17 +1,18 @@
 var mysql = require('mysql');
 let con = require('./con')
-const fs = require ('fs')
+const fs = require('fs')
 
-// con.connect(function (err) {
-//   if (err) throw err;
-//   console.log("Connected!");
-//   con.query("CREATE DATABASE a", function (err, result) {
-//     if (err) throw err;
-//     console.log("Database created");
-//   });
-// });
-
-
+function createDB() {
+  con.connect(function (err) {
+    if (err) throw err;
+    console.log("Connected!");
+    con.query("CREATE DATABASE a", function (err, result) {
+      if (err) throw err;
+      console.log("Database created");
+    });
+  });
+}
+// createDB()
 
 function createTable(jsonFile) {
   let jsonArr = []
@@ -34,16 +35,18 @@ function createT(jsonFile) {
     console.log("Created", db)
   })
 }
-
-fs.readdir("./DB/jsons", function (err, files) {
-  if (err) throw err
-  files.forEach(file => {
-    const path = `/home/hilma/bankProject/server/DB/jsons/${file}`
-    console.log(path)
-    fs.readFile(path, "utf-8", function (err, data) {
-      if (err) throw err
-      createT(JSON.parse(data))
+function readFiles() {
+  fs.readdir("./DB/jsons", function (err, files) {
+    if (err) throw err
+    files.forEach(file => {
+      const path = `./DB/jsons/${file}`
+      console.log(path)
+      fs.readFile(path, "utf-8", function (err, data) {
+        if (err) throw err
+        createT(JSON.parse(data))
+      })
     })
   })
-})
+}
+// readFiles()
 

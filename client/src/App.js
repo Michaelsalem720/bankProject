@@ -10,3 +10,14 @@ function App() {
 }
 
 export default App;
+
+// <Header />
+// <Routes>
+//   <Route path='/' >
+//     <Route index element={<Home/>} />
+//     <Route path='login' element={<Login />} />
+//     <Route path='about' element={<About />} />
+//     <Route path='*' element={<Page404 />} />
+//   </Route>
+// </Routes>
+// <Footer />
