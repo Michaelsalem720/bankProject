@@ -1,7 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import Navigation from "../Navigation";
-// import {  } from "react";
+
 
 function MoveMoney() {
     function hello() {

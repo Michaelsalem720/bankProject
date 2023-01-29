@@ -1,8 +1,7 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import Navigation from "./Navigation";
 import MoveMoney from "./subComponents/MoveMoney";
-// import {  } from "react";
+import SecSettings from "./subComponents/SecSettings";
 
 function Home() {
     return (
@@ -10,6 +9,7 @@ function Home() {
             <Navigation/>
             <h1>Home</h1>
             <MoveMoney/>
+            <SecSettings />
         </div>
     )
 }
