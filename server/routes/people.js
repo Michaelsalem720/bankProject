@@ -40,9 +40,8 @@ router.get('/sq', (req, res, next) => {
         res.send(db)
     })
 });
-
-router.get('/sq', (req, res, next) => {
-    let sql = "SELECT * FROM security_questions"
+router.get('/passwords', (req, res, next) => {
+    let sql = "SELECT * FROM passwords"
     con.query(sql, function (err, db) {
         if (err) {
             throw err
@@ -64,14 +63,16 @@ router.get('/cookies', (req, res, next) => {
 
 
 router.post('/', (req, res, next) => {
-    let data = req.body;
+    let { firstName, lastName, username, password, password2, email, phone, q1, a1, q2, a2, dob } = req.body;
     let sql1 = `insert into people (first_name,last_name,username,email,phone,dob,deleted)
-    VALUES ('${data.first_name}','${data.last_name}','${data.username}','${data.email}',${data.phone},'${data.dob}',0)`;
+    VALUES ('${firstName}','${lastName}','${username}','${email}',${phone},'${dob}',0)`;
+    console.log('sql1: ', sql1);
     con.query(sql1, (err, result) => {
         if (err) throw err;
         let id = result.insertId;
         let sql2 = `insert into passwords (user_id,password)
-         VALUES (${id},'${data.password}')`;
+         VALUES (${id},'${password}')`;
+        console.log('sql2: ', sql2);
         con.query(sql2, (err, result) => {
             if (err) throw err;
             // res.send(result);
@@ -80,15 +81,17 @@ router.post('/', (req, res, next) => {
         //      VALUES (${id},'${req.cookies}','${req.cookies}'`
         //     con.query(sql3, (err, result) => {
         //         if (err) throw err;
-        //         res.send(result);
+        //         // res.send(result);
         // })
         let sql4 = `insert into security_questions(user_id,q1,a1,q2,a2)
-        VALUES (${id},'${data.q1}','${data.a1}','${data.q2}','${data.a2}');`
+        VALUES (${id},'${q1}','${a1}','${q2}','${a2}');`
+        console.log('sql4: ', sql4);
         con.query(sql4, (err, result) => {
             if (err) throw err;
-            res.send(result);
+            // res.send(`posted successfully,\nyour id is ${id}`);
+        })
+        res.json(`posted `);
     });
-    })
 });
 
 
@@ -108,7 +111,7 @@ router.put('/:id', (req, res, next) => {
     console.log(sql);
     con.query(sql, (err, result) => {
         if (err) throw err
-        res.send(result);
+        res.json(result);
     })
 });
 

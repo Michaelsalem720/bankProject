@@ -22,12 +22,13 @@ function Register() {
         e.preventDefault();
         switch (validateData()) {
             case 'firstName':
-                console.log('incorrectFirstName');
+                return ('incorrectFirstName');
 
             default:
                 break;
         }
         // console.log(new Date(userInfo.dob) < new Date());
+        console.log(userInfo);
         let res = await fetch(`http://localhost:8080/people`, {
             method: 'POST',
             headers: {
@@ -44,7 +45,7 @@ function Register() {
             return 'firstName';
         }
     }
-    let questionOptions = ["What is your favorite food?", "What is your mother's maiden name?", "What is your first pet's name?", "What is your favorite movie?", "What is your favorite hobby?", "What is your childhood nickname?", "What is your favorite book?"];
+    let questionOptions = ["What is your favorite food?", "What is your mothers maiden name?", "What is your first pets name?", "What is your favorite movie?", "What is your favorite hobby?", "What is your childhood nickname?", "What is your favorite book?"];
     const availableOptions = questionOptions.filter(q => q !== selectedQ1);
 
     return (
