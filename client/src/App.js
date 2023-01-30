@@ -5,19 +5,13 @@ import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import UserId from "./context/UserId";
 
 
 function App() {
-  const [userId, setUserId] = useState(null);
-  const contextValue = { userId, setUserId };
-  const UserContext = React.createContext({
-    userId: null,
-    setUserId: () => {}
-  });
+ 
   return (
     <div>
-      <UserContext.Provider value={contextValue}>
+      
         <Header />
         <Routes>
           <Route path='/' element={<Login />} />
@@ -26,7 +20,6 @@ function App() {
           <Route path='/home' element={<Home />} />
         </Routes>
         <Footer />
-      </UserContext.Provider>
     </div>
   );
 }
