@@ -3,132 +3,141 @@ import ReactDOM from "react-dom";
 import UserContext from "../context/userContext";
 
 function Register() {
-    const [userInfo, setUserInfo] = useState({ firstName: '', lastName: '', username: '', password: '', passwordValidate: '', email: '', phone: '', securityQ1: '', securityA1: '', securityQ2: '', securityA2: '' });
+    const [userInfo, setUserInfo] = useState({ firstName: '', lastName: '', username: '', password: '', passwordValidate: '', email: '', phone: '', securityQ1: '', securityA1: '', securityQ2: '', securityA2: '',dateOfBirth:new Date().toLocaleDateString });
+    const [selectedQ1, setSelectedQ1] = useState('');
 
     // const { setId } = useContext(UserContext);
 
     function handleChange(e) {
         let { name, value } = e.target;
-        setUserInfo({ ...registrationInfo, [name]: value })
+        setUserInfo({ ...userInfo, [name]: value })
     }
-
+    function handleQ1Change(e) {
+        let { name, value } = e.target;
+        setSelectedQ1(value)
+        setUserInfo({ ...userInfo, securityQ1: value })
+    }
     async function handleSubmit(e) {
         e.preventDefault();
         console.log('hello');
         // let res = await fetch(`http://localhost:8080/`)
         // let data = await res.json();
     }
+    function validateData() {
+        let { firstName, lastName, username, password, passwordValidate, email, phone, securityQ1, securityA1, securityQ2, securityA2 } = userInfo;
+        if (firstName === '') {
+            return 'First Name is required';
+        }
+    }
+    let questionOptions = ["What is your favorite food?", "What is your mother's maiden name?", "What is your first pet's name?", "What is your favorite movie?", "What is your favorite hobby?", "What is your childhood nickname?", "What is your favorite book?"];
+    const availableOptions = questionOptions.filter(q => q !== selectedQ1);
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label> First Name:
+        <form>
+            <label>{`First Name: `}
                 <input
                     type="text"
                     name="firstName"
-                    value={registrationInfo.firstName}
+                    value={userInfo.firstName}
                     onChange={handleChange}
                 />
             </label>
             <br />
-            <label>
-                Last Name:
+            <label>{`Last Name: `}
                 <input
                     type="text"
                     name="lastName"
-                    value={registrationInfo.lastName}
+                    value={userInfo.lastName}
                     onChange={handleChange}
                 />
             </label>
             <br />
-            <label>
-                Username:
+            <label>{`Username: `}
                 <input
                     type="text"
                     name="username"
-                    value={registrationInfo.username}
+                    value={userInfo.username}
                     onChange={handleChange}
                 />
             </label>
             <br />
-            <label>
-                Password:
+            <label>{`Password: `}
                 <input
                     type="password"
                     name="password"
-                    value={registrationInfo.password}
+                    value={userInfo.password}
                     onChange={handleChange}
                 />
             </label>
             <br />
-            <label>
-                Confirm Password:
+            <label>{`Re-enter Password: `}
                 <input
                     type="password"
                     name="passwordValidate"
-                    value={registrationInfo.passwordValidate}
+                    value={userInfo.passwordValidate}
                     onChange={handleChange}
                 />
             </label>
             <br />
-            <label>
-                Email:
+            <label>{`Email: `}
                 <input
                     type="email"
                     name="email"
-                    value={registrationInfo.email}
+                    value={userInfo.email}
                     onChange={handleChange}
                 />
             </label>
             <br />
-            <label>
-                Phone Number:
+            <label>{`Phone: `}
                 <input
                     type="tel"
                     name="phone"
-                    value={registrationInfo.phone}
+                    value={userInfo.phone}
                     onChange={handleChange}
                 />
             </label>
             <br />
-            <label>
-                Security Question 1:
-                <input
-                    type="text"
-                    name="securityQ1"
-                    value={registrationInfo.securityQ1}
-                    onChange={handleChange}
-                />
+            <label>{`Security Question 1: `}
+                <select name="securityQ1" value={userInfo.securityQ1} onChange={handleQ1Change}>
+                    <option value="">Select a Question</option>
+                    {questionOptions.map(q => (
+                        <option key={q} value={q}>
+                            {q}
+                        </option>
+                    ))}
+                </select>
             </label>
             <br />
-            <label>
-                Security Answer 1:
+            <label>{`Answer 1: `}
                 <input
                     type="text"
                     name="securityA1"
-                    value={registrationInfo.securityA1}
+                    value={userInfo.securityA1}
                     onChange={handleChange}
                 />
             </label>
             <br />
-            <label>
-                Security Question 2:
-                <input
-                    type="text"
-                    name="securityQ2"
-                    value={registrationInfo.securityQ2}
-                />
+            <label>{`Security Question 2: `}
+                <select name="securityQ2" value={userInfo.securityQ2} onChange={handleChange}>
+                    <option value="">Select a Question</option>
+                    {availableOptions.map(q => (
+                        <option key={q} value={q}>
+                            {q}
+                        </option>
+                    ))}
+                </select>
             </label>
             <br />
-            <label>
-                Security Answer 2:
+            <label>{`Answer 2: `}
                 <input
                     type="text"
                     name="securityA2"
-                    value={registrationInfo.securityA2}
+                    value={userInfo.securityA2}
                     onChange={handleChange}
                 />
             </label>
             <br />
+            <button type="submit">Register</button>
         </form>
     );
 };
