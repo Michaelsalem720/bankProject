@@ -23,7 +23,7 @@ function App() {
           <Route path='/home' element={<Home />} />
         </Routes>
         <Footer />
-      </UserContext.Provider>
+        </UserContext.Provider>
     </div>
   );
 }

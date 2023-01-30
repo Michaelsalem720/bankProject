@@ -1,7 +1,8 @@
 import React from "react";
 
 function DownloadStatements() {
-    function hello() {
+    function hello(e) {
+        e.preventDefault();
         console.log('hello');
     }
 

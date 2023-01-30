@@ -1,19 +1,13 @@
 import React, { useContext, useState } from "react";
 import UserContext from "../context/userContext";
+import { useNavigate } from "react-router-dom";
 import Home from "./Home";
-// function Login() {
-//     return (
-//         <div>
-//             <h1>Login</h1>
-//         </div>
-//     )
-// }
 
 
 function Login() {
 
     const [loginInfo, setLoginInfo] = useState({ username: "", password: "" });
-
+    const navigate = useNavigate();
     const { setId } = useContext(UserContext);
 
     function handleChange(e) {
@@ -23,6 +17,9 @@ function Login() {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        if (loginInfo.username === "eyal" && loginInfo.password === "1234") {
+            navigate('/home')
+        }
         // let res = await fetch(`http://localhost:8080/`)
         // let data = await res.json();
     }
@@ -40,9 +37,11 @@ function Login() {
                 </label>
             </div>
             <button type="submit">Login</button>
-            <Home />
         </form>
     );
 }
+
+
+
 
 export default Login;
