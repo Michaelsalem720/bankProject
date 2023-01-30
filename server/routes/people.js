@@ -55,14 +55,19 @@ router.post('/', (req, res, next) => {
             if (err) throw err;
             res.send(result);
         });
-        console.log(req.cookies);
-    //     let sql3 = `insert into cookies (user_id,cookie,date,permissions)
-    //      VALUES (${id},'${req.cookies}','${req.cookies}'`
-    //     con.query(sql3, (err, result) => {
-    //         if (err) throw err;
-    //         res.send(result);
+        //     let sql3 = `insert into cookies (user_id,cookie,date,permissions)
+        //      VALUES (${id},'${req.cookies}','${req.cookies}'`
+        //     con.query(sql3, (err, result) => {
+        //         if (err) throw err;
+        //         res.send(result);
         // })
     });
+    let sql4 = `insert into security_questions(user_id,q1,a1,q2,a2)
+    VALUES (${id},'${data.q1}','${data.a1}','${data.q2}','${data.a2}');`
+    con.query(sql4, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    })
 });
 
 
