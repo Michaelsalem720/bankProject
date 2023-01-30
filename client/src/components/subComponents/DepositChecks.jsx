@@ -1,7 +1,8 @@
 import React from "react";
 
 function DepositChecks() {
-    function hello() {
+    function hello(e) {
+        e.preventDefault();
         console.log('hello');
     }
 

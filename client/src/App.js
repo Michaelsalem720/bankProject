@@ -14,7 +14,7 @@ function App() {
   
   return (
     <div>
-      
+      <UserContext.Provider value={contextValue}>
         <Header />
         <Routes>
           <Route path='/' element={<Login />} />
@@ -23,6 +23,7 @@ function App() {
           <Route path='/home' element={<Home />} />
         </Routes>
         <Footer />
+        </UserContext.Provider>
     </div>
   );
 }

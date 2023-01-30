@@ -15,14 +15,13 @@ function Home() {
     // },[id])
     return (
         <div>
-            <p>User ID: {id}</p>
-            {/* <Navigation />
+            <Navigation />
             <MoveMoney />
             <CreditCard />
             <DepositChecks />
             <DownloadStatements />
             <Chat />
-            <SecSettings /> */}
+            <SecSettings />
         </div>
     )
 }
