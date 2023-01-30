@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import UserContext from "../context/userContext";
 
 function Register() {
-    const [userInfo, setUserInfo] = useState({ firstName: '', lastName: '', username: '', password: '', passwordValidate: '', email: '', phone: '', securityQ1: '', securityA1: '', securityQ2: '', securityA2: '', dob: '' });
+    const [userInfo, setUserInfo] = useState({ firstName: '', lastName: '', username: '', password: '', password2: '', email: '', phone: '', q1: '', a1: '', q2: '', a2: '', dob: '' });
     const [selectedQ1, setSelectedQ1] = useState('');
 
     // const { setId } = useContext(UserContext);
@@ -16,9 +16,9 @@ function Register() {
     function handleQ1Change(e) {
         let { name, value } = e.target;
         setSelectedQ1(value)
-        setUserInfo({ ...userInfo, securityQ1: value })
+        setUserInfo({ ...userInfo, q1: value })
     }
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         switch (validateData()) {
             case 'firstName':
@@ -27,12 +27,19 @@ function Register() {
             default:
                 break;
         }
-        console.log('dob', userInfo.dob);
-        // let res = await fetch(`http://localhost:8080/`)
-        // let data = await res.json();
+        // console.log(new Date(userInfo.dob) < new Date());
+        let res = await fetch(`http://localhost:8080/people`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userInfo)
+        })
+        let data = await res.json();
+        console.log(data);
     }
     function validateData() {
-        let { firstName, lastName, username, password, passwordValidate, email, phone, securityQ1, securityA1, securityQ2, securityA2 } = userInfo;
+        let { firstName, lastName, username, password, password2, email, phone, q1, a1, q2, a2 } = userInfo;
         if (firstName === '') {
             return 'firstName';
         }
@@ -81,8 +88,8 @@ function Register() {
             <label>{`Re-enter Password: `}
                 <input
                     type="password"
-                    name="passwordValidate"
-                    value={userInfo.passwordValidate}
+                    name="password2"
+                    value={userInfo.password2}
                     onChange={handleChange}
                 />
             </label>
@@ -106,7 +113,7 @@ function Register() {
             </label>
             <br />
             <label>{`Security Question 1: `}
-                <select name="securityQ1" value={userInfo.securityQ1} onChange={handleQ1Change}>
+                <select name="q1" value={userInfo.q1} onChange={handleQ1Change}>
                     <option value="">Select a Question</option>
                     {questionOptions.map(q => (
                         <option key={q} value={q}>
@@ -119,14 +126,14 @@ function Register() {
             <label>{`Answer 1: `}
                 <input
                     type="text"
-                    name="securityA1"
-                    value={userInfo.securityA1}
+                    name="a1"
+                    value={userInfo.a1}
                     onChange={handleChange}
                 />
             </label>
             <br />
             <label>{`Security Question 2: `}
-                <select name="securityQ2" value={userInfo.securityQ2} onChange={handleChange}>
+                <select name="q2" value={userInfo.q2} onChange={handleChange}>
                     <option value="">Select a Question</option>
                     {availableOptions.map(q => (
                         <option key={q} value={q}>
@@ -139,8 +146,8 @@ function Register() {
             <label>{`Answer 2: `}
                 <input
                     type="text"
-                    name="securityA2"
-                    value={userInfo.securityA2}
+                    name="a2"
+                    value={userInfo.a2}
                     onChange={handleChange}
                 />
             </label>

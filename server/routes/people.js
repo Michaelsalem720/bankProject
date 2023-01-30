@@ -6,13 +6,32 @@ let con = require('../DB/con')
 
 
 
-router.get('/cookies', (req, res) => {
-    console.log(req.cookies);
-    res.send('Cookies received');
-});
+// router.get('/cookies', (req, res) => {
+//     console.log(req.cookies);
+//     res.send('Cookies received');
+// });
 
 router.get('/', (req, res, next) => {
     let sql = "SELECT * FROM people WHERE deleted = 0"
+    con.query(sql, function (err, db) {
+        if (err) {
+            throw err
+        }
+        res.send(db)
+    })
+});
+router.get('/sq', (req, res, next) => {
+    let sql = "SELECT * FROM security_questions WHERE deleted = 0"
+    con.query(sql, function (err, db) {
+        if (err) {
+            throw err
+        }
+        res.send(db)
+    })
+});
+
+router.get('/cookies', (req, res, next) => {
+    let sql = "SELECT * FROM cookies WHERE deleted = 0"
     con.query(sql, function (err, db) {
         if (err) {
             throw err
