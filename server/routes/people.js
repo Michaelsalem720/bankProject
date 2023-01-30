@@ -20,8 +20,29 @@ router.get('/', (req, res, next) => {
         res.send(db)
     })
 });
+
+router.get('/passwords', (req, res, next) => {
+    let sql = "SELECT * FROM passwords"
+    con.query(sql, function (err, db) {
+        if (err) {
+            throw err
+        }
+        res.send(db)
+    })
+});
+
 router.get('/sq', (req, res, next) => {
-    let sql = "SELECT * FROM security_questions WHERE deleted = 0"
+    let sql = "SELECT * FROM security_questions"
+    con.query(sql, function (err, db) {
+        if (err) {
+            throw err
+        }
+        res.send(db)
+    })
+});
+
+router.get('/sq', (req, res, next) => {
+    let sql = "SELECT * FROM security_questions"
     con.query(sql, function (err, db) {
         if (err) {
             throw err
@@ -31,7 +52,7 @@ router.get('/sq', (req, res, next) => {
 });
 
 router.get('/cookies', (req, res, next) => {
-    let sql = "SELECT * FROM cookies WHERE deleted = 0"
+    let sql = "SELECT * FROM cookies"
     con.query(sql, function (err, db) {
         if (err) {
             throw err
@@ -53,7 +74,7 @@ router.post('/', (req, res, next) => {
          VALUES (${id},'${data.password}')`;
         con.query(sql2, (err, result) => {
             if (err) throw err;
-            res.send(result);
+            // res.send(result);
         });
         //     let sql3 = `insert into cookies (user_id,cookie,date,permissions)
         //      VALUES (${id},'${req.cookies}','${req.cookies}'`
@@ -61,12 +82,12 @@ router.post('/', (req, res, next) => {
         //         if (err) throw err;
         //         res.send(result);
         // })
+        let sql4 = `insert into security_questions(user_id,q1,a1,q2,a2)
+        VALUES (${id},'${data.q1}','${data.a1}','${data.q2}','${data.a2}');`
+        con.query(sql4, (err, result) => {
+            if (err) throw err;
+            res.send(result);
     });
-    let sql4 = `insert into security_questions(user_id,q1,a1,q2,a2)
-    VALUES (${id},'${data.q1}','${data.a1}','${data.q2}','${data.a2}');`
-    con.query(sql4, (err, result) => {
-        if (err) throw err;
-        res.send(result);
     })
 });
 
