@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import UserContext from "../context/userContext";
 
 function Register() {
-    const [userInfo, setUserInfo] = useState({ firstName: '', lastName: '', username: '', password: '', passwordValidate: '', email: '', phone: '', securityQ1: '', securityA1: '', securityQ2: '', securityA2: '',dateOfBirth:new Date().toLocaleDateString });
+    const [userInfo, setUserInfo] = useState({ firstName: '', lastName: '', username: '', password: '', passwordValidate: '', email: '', phone: '', securityQ1: '', securityA1: '', securityQ2: '', securityA2: '', dob: '' });
     const [selectedQ1, setSelectedQ1] = useState('');
 
     // const { setId } = useContext(UserContext);
@@ -11,29 +11,37 @@ function Register() {
     function handleChange(e) {
         let { name, value } = e.target;
         setUserInfo({ ...userInfo, [name]: value })
+        console.log(userInfo.dob);
     }
     function handleQ1Change(e) {
         let { name, value } = e.target;
         setSelectedQ1(value)
         setUserInfo({ ...userInfo, securityQ1: value })
     }
-    async function handleSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault();
-        console.log('hello');
+        switch (validateData()) {
+            case 'firstName':
+                console.log('incorrectFirstName');
+
+            default:
+                break;
+        }
+        console.log('dob', userInfo.dob);
         // let res = await fetch(`http://localhost:8080/`)
         // let data = await res.json();
     }
     function validateData() {
         let { firstName, lastName, username, password, passwordValidate, email, phone, securityQ1, securityA1, securityQ2, securityA2 } = userInfo;
         if (firstName === '') {
-            return 'First Name is required';
+            return 'firstName';
         }
     }
     let questionOptions = ["What is your favorite food?", "What is your mother's maiden name?", "What is your first pet's name?", "What is your favorite movie?", "What is your favorite hobby?", "What is your childhood nickname?", "What is your favorite book?"];
     const availableOptions = questionOptions.filter(q => q !== selectedQ1);
 
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <label>{`First Name: `}
                 <input
                     type="text"
@@ -137,6 +145,9 @@ function Register() {
                 />
             </label>
             <br />
+            <label>
+                <input type="date" name="dob" value={userInfo.dob} onChange={handleChange} />
+            </label>
             <button type="submit">Register</button>
         </form>
     );

@@ -35,6 +35,11 @@
             "column-name": "dob",
             "type": "DATE",
             "special-attributes": "NOT NULL"
+        },
+        {
+            "column-name": "deleted",
+            "type": "TINYINT(1)",
+            "special-attributes": "NOT NULL"
         }
     ]
 }
