@@ -17,6 +17,7 @@ function Login() {
 
     async function login(e) {
         e.preventDefault();
+        let Cookie = createCookie('name')
         try {
             console.log(loginInfo);
             const response = await fetch("http://localhost:8080/login", {
@@ -24,11 +25,14 @@ function Login() {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(loginInfo)
+                body: { data: JSON.stringify(loginInfo), Cookie: Cookie }
             });
             const data = await response.json();
             console.log(data)
             if (data[0].id) {
+                console.log(data[0].id);
+                createCookie('name')
+                sessionStorage.setItem("userId", data[0].id);
                 setId(data[0].id)
                 navigate('/home')
             } else {
@@ -39,14 +43,17 @@ function Login() {
         }
     }
 
-    // async function handleSubmit(e) {
-    //     e.preventDefault();
-    //     if (loginInfo.username && loginInfo.password) {
-    //         navigate('/home')
-    //     }
-        // let res = await fetch(`http://localhost:8080/`)
-        // let data = await res.json();
-    // }
+    function createCookie(name) {
+        let date = new Date();
+        date.setTime(date.getTime() + (1 * 60 * 60 * 1000));
+        let expires = date.toUTCString();
+        let cName = Math.random() * Math.pow(10, 17).toString()
+        console.log(cName);
+        let cookie = `${name}=${cName}; expires=${expires}; path=/home`;
+        document.cookie = cookie;
+        return cookie
+    }
+
     function handleRegister() {
         navigate('/register')
     }

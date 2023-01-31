@@ -5,7 +5,7 @@ let mysql = require('mysql')
 let con = require('../DB/con')
 
 router.get('/', (req, res, next) => {
-    let sql = "SELECT id, username, email, phone, dob FROM people WHERE deleted = 0"
+    let sql = "SELECT * FROM people WHERE deleted = 0"
     con.query(sql, function (err, result) {
         if (err) {
             throw err
@@ -13,7 +13,20 @@ router.get('/', (req, res, next) => {
         res.json(result)
     })
 });
-
+router.get('/accounts/:id', (req, res, next) => {
+    let sql = `SELECT account_number AS account
+    FROM accounts 
+    JOIN people 
+    ON accounts.user_id = people.id 
+    WHERE deleted = 0
+    AND ${req.params.id} = people.id`
+    con.query(sql, function (err, result) {
+        if (err) {
+            throw err
+        }
+        res.json(result)
+    })
+});
 router.get('/sq', (req, res, next) => {
     let sql = "SELECT * FROM security_questions"
     con.query(sql, function (err, result) {
@@ -94,18 +107,24 @@ router.post('/', (req, res, next) => {
             if (err) throw err;
             // res.send(`posted successfully,\nyour id is ${id}`);
         })
+        let sql5 = `INSERT INTO accounts (user_id,account_number,routing_number)
+        VALUES (${id},${id + 364179},10200023);`;
+        con.query(sql5, (err, result) => {
+            if (err) throw err;
+            // res.send(result);
+        })
         res.json(`posted `);
     });
 });
 
 
 router.put('/:id', (req, res, next) => {
-    console.log('req.body :',req.body);
+    console.log('req.bodyyyyyyyyyyyyyyyyyyyyyyyy :',req.body);
     let sql = ''
     let id = req.params.id
     let { description, info } = req.body
-    if (title === 'password') {
-        sql = `update passwords set ${description} = '${info}'
+    if (description === 'password') {
+        sql = `UPDATE passwords set ${description} = '${info}'
         where user_id = ${id} `
     }
     else {

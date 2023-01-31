@@ -10,18 +10,19 @@ import UserContext from "../context/userContext";
 
 function Home() {
     const { id } = useContext(UserContext);
+    let userId = sessionStorage.getItem('userId')
     // useEffect(()=>{
     //     console.log(id);
     // },[id])
     return (
-        <div>{`id: ${id}`}
+        <div>{`id: ${userId}`}
             <Navigation />
-            <MoveMoney />
-            <CreditCard />
+            {/* <MoveMoney /> */}
+            {/* <CreditCard /> */}
             <DepositChecks />
-            <DownloadStatements />
-            <Chat />
-            <SecSettings />
+            {/* <DownloadStatements /> */}
+            {/* <Chat /> */}
+            {/* <SecSettings /> */}
         </div>
     )
 }

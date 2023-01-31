@@ -42,8 +42,7 @@ function Register() {
             let res = await fetch(`http://localhost:8080/people`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Cookie': 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({userInfo:userInfo,Cookie:Cookie})
             })
@@ -68,7 +67,7 @@ function Register() {
         let expires = date.toUTCString();
         let cName = Math.random() * Math.pow(10, 17).toString()
         console.log(cName);
-        let cookie = `${name}=${cName}; expires=${expires}; path=${(document.location.pathname || "/")}`;
+        let cookie = `${name}=${cName}; expires=${expires}; path=/home`;
         document.cookie = cookie;
         return cookie
     }
