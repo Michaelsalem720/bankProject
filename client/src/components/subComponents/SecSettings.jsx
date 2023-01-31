@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import UserContext from "../../context/userContext";
 
 
 function Settings() {
     const [description, setDescription] = useState();
     const [info, setInfo] = useState('');
+
+    const {id} = useContext(UserContext)
 
     function hello(e) {
         e.preventDefault();
@@ -15,31 +18,32 @@ function Settings() {
         console.log(e.target.value);
     }
     function updateValue(e) {
+        console.log(id);
         e.preventDefault();
-        // fetch(`http://localhost:8080/people/${id}`, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify({
-        //         description,
-        //         info
-        //     })
-        // })
-        //     .then(res => res.json())
-        //     .then(data => { console.log(`${description} changed`) })
+        fetch(`http://localhost:8080/people/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                description,
+                info
+            })
+        })
+            .then(res => res.json())
+            .then(data => { console.log(`${description} changed`) })
     }
 
     function deletePerson(e) {
         e.preventDefault();
-        // fetch(`http://localhost:8080/people/${id}`, {
-        //     method: "DELETE",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     }
-        // })
-        //   .then(res => res.json())
-        //   .then(data => { console.log(`user ${id} deleted`) })
+        fetch(`http://localhost:8080/people/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+          .then(res => res.json())
+          .then(data => { console.log(`user ${id} deleted`) })
     }
     return (
         <div>

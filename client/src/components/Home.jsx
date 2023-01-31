@@ -14,7 +14,7 @@ function Home() {
     //     console.log(id);
     // },[id])
     return (
-        <div>
+        <div>{`id: ${id}`}
             <Navigation />
             <MoveMoney />
             <CreditCard />
