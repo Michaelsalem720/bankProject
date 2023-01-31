@@ -5,8 +5,9 @@ import UserContext from "../../context/userContext";
 function Settings() {
     const [description, setDescription] = useState();
     const [info, setInfo] = useState('');
-    const { id } = useContext(UserContext);
 
+    const {id} = useContext(UserContext)
+    let userId = JSON.parse(sessionStorage.getItem('userId'))
     function hello(e) {
         e.preventDefault();
         setDescription(e.target.id);
@@ -17,9 +18,9 @@ function Settings() {
         console.log(e.target.value);
     }
     function updateValue(e) {
-        console.log(id);
+        console.log(userId);
         e.preventDefault();
-        fetch(`http://localhost:8080/people/${id}`, {
+        fetch(`http://localhost:8080/people/${userId}`, {//need to change back to ${id}
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -36,20 +37,20 @@ function Settings() {
 
     function deletePerson(e) {
         e.preventDefault();
-        fetch(`http://localhost:8080/people/${id}`, {
+        fetch(`http://localhost:8080/people/${userId}`, {//need to change back to ${id}
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
             }
         })
           .then(res => res.json())
-          .then(data => { console.log(`user ${id} deleted`) })
+          .then(data => { console.log(`user ${userId} deleted`) })//need to change back to ${id}
     }
     return (
         <div>
             <h1>Settings</h1>
             <form onSubmit={updateValue}>
-                <p id="username" onClick={hello}>change name</p>
+                <p id="username" onClick={hello}>change username</p>
                 <p id="password" onClick={hello}>change password</p>
                 <p id="email" onClick={hello}>change email</p>
                 <p id="phone" onClick={hello}>change phone-number</p>
