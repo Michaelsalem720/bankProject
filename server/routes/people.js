@@ -101,17 +101,17 @@ router.post('/', (req, res, next) => {
 
 
 router.put('/:id', (req, res, next) => {
-    console.log("kjdekjdwkjdekj");
+    console.log('req.body :',req.body);
     let sql = ''
     let id = req.params.id
-    let { title, data } = req.body
+    let { description, info } = req.body
     if (title === 'password') {
-        sql = `update passwords set ${title} = '${data}'
+        sql = `update passwords set ${description} = '${info}'
         where user_id = ${id} `
     }
     else {
-        let str = title === 'phone' ? "" : "'"
-        sql = `update people set ${title}=${str}${data}${str}
+        let str = description === 'phone' ? "" : "'"
+        sql = `update people set ${description}=${str}${info}${str}
      where id = ${id} `
     }
     console.log(sql);

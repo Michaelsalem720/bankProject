@@ -7,7 +7,6 @@ function Settings() {
     const [info, setInfo] = useState('');
     const { id } = useContext(UserContext);
 
-
     function hello(e) {
         e.preventDefault();
         setDescription(e.target.id);

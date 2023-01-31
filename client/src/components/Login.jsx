@@ -27,7 +27,7 @@ function Login() {
             });
             const data = await response.json();
             if (data[0].id) {
-                setId(data[0].id);
+                setId(data[0].id)
                 navigate('/home')
             } else {
                 console.log("Login failed");
