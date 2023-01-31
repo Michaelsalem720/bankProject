@@ -4,54 +4,87 @@ import { useNavigate } from "react-router-dom";
 import UserContext from "../context/userContext";
 
 function Register() {
+
     const [userInfo, setUserInfo] = useState({ firstName: '', lastName: '', username: '', password: '', password2: '', email: '', phone: '', q1: '', a1: '', q2: '', a2: '', dob: '' });
     const [selectedQ1, setSelectedQ1] = useState('');
     const navigate = useNavigate();
     // const { setId } = useContext(UserContext);
 
+    let questionOptions = ["What is your favorite food?", "What is your mothers maiden name?", "What is your first pets name?", "What is your favorite movie?", "What is your favorite hobby?", "What is your childhood nickname?", "What is your favorite book?"];
+    let availableOptions = questionOptions.filter(q => q !== selectedQ1);
+
     function handleChange(e) {
         let { name, value } = e.target;
         setUserInfo({ ...userInfo, [name]: value })
-        console.log(userInfo.dob);
     }
+
     function handleQ1Change(e) {
         let { name, value } = e.target;
         setSelectedQ1(value)
         setUserInfo({ ...userInfo, q1: value })
     }
+
     async function handleSubmit(e) {
+        navigate('/login')
         e.preventDefault();
         switch (validateData()) {
-            case 'firstName':
-                return ('incorrectFirstName');
+            case 100:
+                return console.log(('missing field '));
 
             default:
                 break;
         }
         // console.log(new Date(userInfo.dob) < new Date());
-        console.log(userInfo);
-        let res = await fetch(`http://localhost:8080/people`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userInfo)
-        })
-        let data = await res.json();
-        console.log(data);
-        navigate('/login');
-    }
-    function validateData() {
-        let { firstName, lastName, username, password, password2, email, phone, q1, a1, q2, a2 } = userInfo;
-        if (firstName === '') {
-            return 'firstName';
+       
+        try {
+            let Cookie= createCookie('name')
+            
+            let res = await fetch(`http://localhost:8080/people`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Cookie': 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+                },
+                body: JSON.stringify({userInfo:userInfo,Cookie:Cookie})
+            })
+            let data = await res.json();
+            console.log(data);
+        } catch (err) {
+            console.log('error: ', err);
         }
     }
-    let questionOptions = ["What is your favorite food?", "What is your mothers maiden name?", "What is your first pets name?", "What is your favorite movie?", "What is your favorite hobby?", "What is your childhood nickname?", "What is your favorite book?"];
-    const availableOptions = questionOptions.filter(q => q !== selectedQ1);
 
+    function validateData() {
+        let { firstName, lastName, username, password, password2, email, phone, q1, a1, q2, a2, dob } = userInfo;
+        // console.log(firstName, lastName, username, password, password2, email, phone, q1, a1, q2, a2, dob);
+        if (firstName && lastName && username && password && password2 && email && phone && q1 && a1 && q2 && a2 && dob) {
+        }
+        else return 100;
+    }
+
+    function createCookie(name) {
+        let date = new Date();
+        date.setTime(date.getTime() + (1 * 60 * 60 * 1000));
+        let expires = date.toUTCString();
+        let cName = Math.random() * Math.pow(10, 17).toString()
+        console.log(cName);
+        let cookie = `${name}=${cName}; expires=${expires}; path=${(document.location.pathname || "/")}`;
+        document.cookie = cookie;
+        return cookie
+    }
+async function deletes(){
+    let res = await fetch(`http://localhost:8080/people/delete`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+
+    })
+}
     return (
+        
         <form onSubmit={handleSubmit}>
+            <button onClick={deletes}>delete</button>
             <label>{`First Name: `}
                 <input
                     type="text"
