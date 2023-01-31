@@ -21,7 +21,7 @@ function Settings() {
         console.log(id);
         e.preventDefault();
         fetch(`http://localhost:8080/people/${id}`, {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
