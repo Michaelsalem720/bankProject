@@ -30,6 +30,7 @@ function DepositChecks() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        let Cookie = createCookie('name')
         const response = await fetch(`http://localhost:8080/transactions`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -39,6 +40,16 @@ function DepositChecks() {
         console.log(data);
         // console.log(`you now have ${data.amount} in your account`);
     };
+    function createCookie(name) {
+        let date = new Date();
+        date.setTime(date.getTime() + (1 * 60 * 60 * 1000));
+        let expires = date.toUTCString();
+        let cName = Math.random() * Math.pow(10, 17).toString()
+        console.log(cName);
+        let cookie = `${name}=${cName}; expires=${expires}; path=/home`;
+        document.cookie = cookie;
+        return cookie
+    }
 
     return (
         <form onSubmit={handleSubmit}>

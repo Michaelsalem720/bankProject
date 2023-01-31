@@ -20,7 +20,7 @@ function Home() {
             {/* <MoveMoney /> */}
             {/* <CreditCard /> */}
             <DepositChecks />
-            {/* <DownloadStatements /> */}
+            <DownloadStatements />
             {/* <Chat /> */}
             {/* <SecSettings /> */}
         </div>

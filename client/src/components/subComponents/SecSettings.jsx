@@ -35,6 +35,7 @@ function Settings() {
             .then(data => { console.log(`${description} changed`) })
     }
 
+
     function deletePerson(e) {
         e.preventDefault();
         fetch(`http://localhost:8080/people/${userId}`, {//need to change back to ${id}
