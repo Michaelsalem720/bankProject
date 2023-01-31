@@ -32,10 +32,8 @@ function DepositChecks() {
         e.preventDefault();
         const response = await fetch(`http://localhost:8080/transactions`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: {data:JSON.stringify(formData),Cookie}
+            headers: { "Content-Type": "application/json" },
+            body: { data: JSON.stringify(formData), Cookie: document.cookie }
         });
         const data = await response.json();
         console.log(data);

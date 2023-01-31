@@ -17,21 +17,15 @@ function Login() {
 
     async function login(e) {
         e.preventDefault();
-        let Cookie = createCookie('name')
+        let Cookie = createCookie('token')
         try {
-            console.log(loginInfo);
             const response = await fetch("http://localhost:8080/login", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: { data: JSON.stringify(loginInfo), Cookie: Cookie }
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ data: loginInfo, token: Cookie })
             });
             const data = await response.json();
-            console.log(data)
             if (data[0].id) {
-                console.log(data[0].id);
-                createCookie('name')
                 sessionStorage.setItem("userId", data[0].id);
                 setId(data[0].id)
                 navigate('/home')

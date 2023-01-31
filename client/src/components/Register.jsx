@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/userContext";
@@ -7,6 +8,13 @@ function Register() {
 
     const [userInfo, setUserInfo] = useState({ firstName: '', lastName: '', username: '', password: '', password2: '', email: '', phone: '', q1: '', a1: '', q2: '', a2: '', dob: '' });
     const [selectedQ1, setSelectedQ1] = useState('');
+    const [dataMsg, setDataMsg] = useState(validateData());
+
+    useEffect(() => {
+        setDataMsg(validateData());
+        // validateData()
+        console.log(userInfo);
+    }, [userInfo])
     const navigate = useNavigate();
     // const { setId } = useContext(UserContext);
 
@@ -25,65 +33,42 @@ function Register() {
     }
 
     async function handleSubmit(e) {
-        navigate('/login')
         e.preventDefault();
-        switch (validateData()) {
-            case 100:
-                return console.log(('missing field '));
-
-            default:
-                break;
+        if (!validateData()) {
+            return "try again";
         }
-        // console.log(new Date(userInfo.dob) < new Date());
-       
+        postData();
+    }
+
+    async function postData() {
         try {
-            let Cookie= createCookie('name')
-            
             let res = await fetch(`http://localhost:8080/people`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({userInfo:userInfo,Cookie:Cookie})
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userInfo)
             })
             let data = await res.json();
             console.log(data);
-        } catch (err) {
+        }
+        catch (err) {
             console.log('error: ', err);
         }
     }
 
     function validateData() {
         let { firstName, lastName, username, password, password2, email, phone, q1, a1, q2, a2, dob } = userInfo;
-        // console.log(firstName, lastName, username, password, password2, email, phone, q1, a1, q2, a2, dob);
-        if (firstName && lastName && username && password && password2 && email && phone && q1 && a1 && q2 && a2 && dob) {
-        }
-        else return 100;
+        if (!firstName || !lastName || !username || !password || !password2 || !email || !phone || !q1 || !a1 || !q2 || !a2 || !dob) return `Please fill in all fields`;
+        else if (password !== password2) return 'passwords do not match';
+        else if (!/^\w+@[a-z]+\.[a-z]{2,}$/i.test(email)) return 'please enter a valid email';
+        else if (!/^\d{10}$/.test(phone)) return 'please enter a valid phone number';
+        else if (new Date(dob) > new Date()) return 'please enter a valid date of birth';
+        else if (new Date(dob) >= new Date(new Date().getFullYear() - 18, new Date().getMonth(), new Date().getDate())) return `sorry, please come back in ${18 - new Date().getFullYear() + new Date(dob).getFullYear()} year/s`;
+        else return false;
     }
-
-    function createCookie(name) {
-        let date = new Date();
-        date.setTime(date.getTime() + (1 * 60 * 60 * 1000));
-        let expires = date.toUTCString();
-        let cName = Math.random() * Math.pow(10, 17).toString()
-        console.log(cName);
-        let cookie = `${name}=${cName}; expires=${expires}; path=/home`;
-        document.cookie = cookie;
-        return cookie
-    }
-async function deletes(){
-    let res = await fetch(`http://localhost:8080/people/delete`, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-
-    })
-}
     return (
-        
+
         <form onSubmit={handleSubmit}>
-            <button onClick={deletes}>delete</button>
+            <div>{dataMsg || `Great job ${userInfo.firstName}, you're ready to submit!`}</div>
             <label>{`First Name: `}
                 <input
                     type="text"
