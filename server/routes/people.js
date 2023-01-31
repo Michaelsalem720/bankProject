@@ -4,6 +4,7 @@ var router = express.Router();
 let mysql = require('mysql')
 let con = require('../DB/con')
 
+
 router.get('/', (req, res, next) => {
     let sql = "SELECT id, username, email, phone, dob FROM people WHERE deleted = 0"
     con.query(sql, function (err, result) {
@@ -100,6 +101,7 @@ router.post('/', (req, res, next) => {
 
 
 router.put('/:id', (req, res, next) => {
+    console.log("kjdekjdwkjdekj");
     let sql = ''
     let id = req.params.id
     let { title, data } = req.body

@@ -18,7 +18,6 @@ function Login() {
     async function login(e) {
         e.preventDefault();
         try {
-            console.log(loginInfo);
             const response = await fetch("http://localhost:8080/login", {
                 method: "POST",
                 headers: {
@@ -27,8 +26,8 @@ function Login() {
                 body: JSON.stringify(loginInfo)
             });
             const data = await response.json();
-            console.log(data)
             if (data[0].id) {
+                setId(data[0].id);
                 navigate('/home')
             } else {
                 console.log("Login failed");
@@ -38,14 +37,6 @@ function Login() {
         }
     }
 
-    // async function handleSubmit(e) {
-    //     e.preventDefault();
-    //     if (loginInfo.username && loginInfo.password) {
-    //         navigate('/home')
-    //     }
-        // let res = await fetch(`http://localhost:8080/`)
-        // let data = await res.json();
-    // }
     function handleRegister() {
         navigate('/register')
     }
