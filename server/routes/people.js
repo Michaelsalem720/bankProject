@@ -105,7 +105,7 @@ router.put('/:id', (req, res, next) => {
     let sql = ''
     let id = req.params.id
     let { description, info } = req.body
-    if (title === 'password') {
+    if (description === 'password') {
         sql = `update passwords set ${description} = '${info}'
         where user_id = ${id} `
     }
