@@ -15,29 +15,58 @@ function Login() {
         setLoginInfo({ ...loginInfo, [name]: value })
     }
 
-    async function handleSubmit(e) {
+    async function login(e) {
         e.preventDefault();
-        if (loginInfo.username === "eyal" && loginInfo.password === "1234") {
-            navigate('/home')
+        try {
+            console.log(loginInfo);
+            const response = await fetch("http://localhost:8080/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(loginInfo)
+            });
+            const data = await response.json();
+            console.log(data)
+            if (data[0].id) {
+                navigate('/home')
+            } else {
+                console.log("Login failed");
+            }
+        } catch (error) {
+            console.log(error);
         }
+    }
+
+    // async function handleSubmit(e) {
+    //     e.preventDefault();
+    //     if (loginInfo.username && loginInfo.password) {
+    //         navigate('/home')
+    //     }
         // let res = await fetch(`http://localhost:8080/`)
         // let data = await res.json();
+    // }
+    function handleRegister() {
+        navigate('/register')
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="username">{'Username: '}
-                    <input type="text" name="username" value={loginInfo.username} onChange={handleChange} />
-                </label>
-            </div>
-            <div>
-                <label htmlFor="password">{'Password: '}
-                    <input type="text" name="password" value={loginInfo.password} onChange={handleChange} />
-                </label>
-            </div>
-            <button type="submit">Login</button>
-        </form>
+        <>
+            <form onSubmit={login}>
+                <div>
+                    <label htmlFor="username">{'Username: '}
+                        <input type="text" name="username" value={loginInfo.username} onChange={handleChange} />
+                    </label>
+                </div>
+                <div>
+                    <label htmlFor="password">{'Password: '}
+                        <input type="text" name="password" value={loginInfo.password} onChange={handleChange} />
+                    </label>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            <button onClick={handleRegister}>Register</button>
+        </>
     );
 }
 

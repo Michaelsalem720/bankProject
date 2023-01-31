@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
 import ReactDOM from "react-dom";
+import { useNavigate } from "react-router-dom";
 import UserContext from "../context/userContext";
 
 function Register() {
     const [userInfo, setUserInfo] = useState({ firstName: '', lastName: '', username: '', password: '', password2: '', email: '', phone: '', q1: '', a1: '', q2: '', a2: '', dob: '' });
     const [selectedQ1, setSelectedQ1] = useState('');
-
+    const navigate = useNavigate();
     // const { setId } = useContext(UserContext);
 
     function handleChange(e) {
@@ -38,6 +39,7 @@ function Register() {
         })
         let data = await res.json();
         console.log(data);
+        navigate('/login');
     }
     function validateData() {
         let { firstName, lastName, username, password, password2, email, phone, q1, a1, q2, a2 } = userInfo;

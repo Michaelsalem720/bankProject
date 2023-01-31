@@ -13,50 +13,53 @@ let con = require('../DB/con')
 
 router.get('/', (req, res, next) => {
     let sql = "SELECT * FROM people WHERE deleted = 0"
-    con.query(sql, function (err, db) {
+    con.query(sql, function (err, result) {
         if (err) {
             throw err
         }
-        res.send(db)
+        res.json(result)
     })
 });
 
-router.get('/passwords', (req, res, next) => {
-    let sql = "SELECT * FROM passwords"
-    con.query(sql, function (err, db) {
+router.post('/login', (req, res, next) => {
+    let { username, password } = req.body.loginInfo;
+    console.log(req.body);
+    let sql = `SELECT id FROM people 
+    WHERE deleted = 0 AND username = ${username} AND password = ${password}`
+    con.query(sql, function (err, result) {
         if (err) {
             throw err
         }
-        res.send(db)
+        res.json(result)
     })
 });
 
 router.get('/sq', (req, res, next) => {
     let sql = "SELECT * FROM security_questions"
-    con.query(sql, function (err, db) {
+    con.query(sql, function (err, result) {
         if (err) {
             throw err
         }
-        res.send(db)
+        res.json(result)
     })
 });
 router.get('/passwords', (req, res, next) => {
     let sql = "SELECT * FROM passwords"
-    con.query(sql, function (err, db) {
+    con.query(sql, function (err, result) {
         if (err) {
             throw err
         }
-        res.send(db)
+        res.json(result)
     })
 });
 
 router.get('/cookies', (req, res, next) => {
     let sql = "SELECT * FROM cookies"
-    con.query(sql, function (err, db) {
+    con.query(sql, function (err, result) {
         if (err) {
             throw err
         }
-        res.send(db)
+        res.json(result)
     })
 });
 
