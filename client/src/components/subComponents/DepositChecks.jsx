@@ -122,6 +122,7 @@ function DepositChecks() {
                             name="routingNumber"
                             value={formData.routingNumber}
                             onChange={handleInputChange}
+                            maxLength ='9'
                         />
                     </label>
                 </div>
