@@ -35,7 +35,8 @@ function Register() {
             case false:
                 postData();
                 break;
-            default:
+                default:
+                alert(dataMsg);
                 return
         }
     }
@@ -69,124 +70,120 @@ function Register() {
     }
     return (
         <>
-        <header id="main-header">
-        <h1 className="header-title">My Bank</h1>
-    </header>
-    <main className="login-page">
-        <form onSubmit={handleSubmit}>
-            <div>{dataMsg || `Great job ${userInfo.firstName}, you're ready to submit!`}</div>
-            <label>{`First Name: `}
-                <input className="form-input"
-                    type="text"
-                    name="firstName"
-                    value={userInfo.firstName}
-                    onChange={handleChange}
-                />
-            </label>
-            <br />
-            <label>{`Last Name: `}
-                <input className="form-input"
-                    type="text"
-                    name="lastName"
-                    value={userInfo.lastName}
-                    onChange={handleChange}
-                />
-            </label>
-            <br />
-            <label>{`Username: `}
-                <input className="form-input"
-                    type="text"
-                    name="username"
-                    value={userInfo.username}
-                    onChange={handleChange}
-                />
-            </label>
-            <br />
-            <label>{`Password: `}
-                <input className="form-input"
-                    type="password"
-                    name="password"
-                    value={userInfo.password}
-                    onChange={handleChange}
-                />
-            </label>
-            <br />
-            <label>{`Re-enter Password: `}
-                <input className="form-input"
-                    type="password"
-                    name="password2"
-                    value={userInfo.password2}
-                    onChange={handleChange}
-                />
-            </label>
-            <br />
-            <label>{`Email: `}
-                <input className="form-input"
-                    type="email"
-                    name="email"
-                    value={userInfo.email}
-                    onChange={handleChange}
-                />
-            </label>
-            <br />
-            <label>{`Phone: `}
-                <input className="form-input"
-                    type="tel"
-                    name="phone"
-                    value={userInfo.phone}
-                    onChange={handleChange}
-                />
-            </label>
-            <br />
-            <label>{`Security Question 1: `}
-                <select name="q1" value={userInfo.q1} onChange={handleQ1Change}>
-                    <option value="">Select a Question</option>
-                    {questionOptions.map(q => (
-                        <option key={q} value={q}>
-                            {q}
-                        </option>
-                    ))}
-                </select>
-            </label>
-            <br />
-            <label>{`Answer 1: `}
-                <input className="form-input"
-                    type="text"
-                    name="a1"
-                    value={userInfo.a1}
-                    onChange={handleChange}
-                />
-            </label>
-            <br />
-            <label>{`Security Question 2: `}
-                <select name="q2" value={userInfo.q2} onChange={handleChange}>
-                    <option value="">Select a Question</option>
-                    {availableOptions.map(q => (
-                        <option key={q} value={q}>
-                            {q}
-                        </option>
-                    ))}
-                </select>
-            </label>
-            <br />
-            <label>{`Answer 2: `}
-                <input className="form-input"
-                    type="text"
-                    name="a2"
-                    value={userInfo.a2}
-                    onChange={handleChange}
-                />
-            </label>
-            <br />
-            <label>
-                <input type="date" name="dob" value={userInfo.dob} onChange={handleChange} />
-            </label>
-            <button className="form-submit" type="submit">Register</button>
-        </form>
-        </main>
-            <footer>
-                Copyright © My Bank 2023
-            </footer>
+
+            <h1 className="title_h1">Register</h1>
+            <main className="register_page">
+                <form id="register_form" onSubmit={handleSubmit}>
+                    <label className="lab_login">{`First Name: `}
+                        <input className="form-input"
+                            type="text"
+                            name="firstName"
+                            value={userInfo.firstName}
+                            onChange={handleChange}
+                        />
+                    </label>
+                    <br />
+                    <label className="lab_login">{`Last Name: `}
+                        <input className="form-input"
+                            type="text"
+                            name="lastName"
+                            value={userInfo.lastName}
+                            onChange={handleChange}
+                        />
+                    </label>
+                    <br />
+                    <label className="lab_login">{`Username: `}
+                        <input className="form-input"
+                            type="text"
+                            name="username"
+                            value={userInfo.username}
+                            onChange={handleChange}
+                        />
+                    </label>
+                    <br />
+                    <label className="lab_login">{`Password: `}
+                        <input className="form-input"
+                            type="password"
+                            name="password"
+                            value={userInfo.password}
+                            onChange={handleChange}
+                        />
+                    </label>
+                    <br />
+                    <label id="input_pass">{`Re-enter Password: `}
+                        <input className="form-input"
+                            type="password"
+                            name="password2"
+                            value={userInfo.password2}
+                            onChange={handleChange}
+                        />
+                    </label>
+                    <br />
+                    <label id="email_input" className="lab_login">{`Email: `}
+                        <input className="form-input"
+                            type="email"
+                            name="email"
+                            value={userInfo.email}
+                            onChange={handleChange}
+                        />
+                    </label>
+                    <br />
+                    <label id="phone_input" className="lab_login">{`Phone: `}
+                        <input className="form-input"
+                            type="tel"
+                            name="phone"
+                            value={userInfo.phone}
+                            onChange={handleChange}
+                        />
+                    </label>
+                    <br />
+                    <label>{`Security Question 1: `}
+                        <select name="q1" value={userInfo.q1} onChange={handleQ1Change}>
+                            <option value="">Select a Question</option>
+                            {questionOptions.map(q => (
+                                <option key={q} value={q}>
+                                    {q}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+                    <br />
+                    <label className="lab_login">{`Answer 1: `}
+                        <input className="form-input"
+                            type="text"
+                            name="a1"
+                            value={userInfo.a1}
+                            onChange={handleChange}
+                        />
+                    </label>
+                    <br />
+                    <label>{`Security Question 2: `}
+                        <select name="q2" value={userInfo.q2} onChange={handleChange}>
+                            <option value="">Select a Question</option>
+                            {availableOptions.map(q => (
+                                <option key={q} value={q}>
+                                    {q}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+                    <br />
+                    <label className="lab_login">{`Answer 2: `}
+                        <input className="form-input"
+                            type="text"
+                            name="a2"
+                            value={userInfo.a2}
+                            onChange={handleChange}
+                        />
+                    </label>
+                    <br />
+                    <label className="lab_login">{`Date of birth:`}
+                        <input type="date" name="dob" value={userInfo.dob} onChange={handleChange} />
+                    </label><br></br>
+                    <div id="msg">{dataMsg || `Great job ${userInfo.firstName}, you're ready to submit!`}</div>
+                    <button className="form-submit" type="submit">Register</button>
+                </form>
+            </main>
         </>
     );
 };

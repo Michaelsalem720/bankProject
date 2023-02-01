@@ -6,9 +6,10 @@ import { Outlet, outlet } from 'react-router-dom'
 
 function Header() {
     return (
-        <div>
-        </div>
-        
+        <header id="main-header">
+            <h1 className="header-title">My Bank</h1>
+        </header>
+
     )
 }
 

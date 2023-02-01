@@ -4,8 +4,9 @@ import ReactDOM from "react-dom";
 
 function Footer() {
     return (
-        <div>
-        </div>
+        <footer>
+            Copyright © My Bank 2023
+        </footer>
     )
 }
 

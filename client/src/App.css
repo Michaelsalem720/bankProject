@@ -1,79 +1,116 @@
-/*header style*/
-header{
-    background-color: #3E4551;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-  }
-  header h1{
-    color: #FFFFFF;
-    font-size: 20px;
-    margin: 0;
-  }
-  
-  /*footer style*/
-  footer{
-    background-color: #3E4551;
-    color: #FFFFFF;
-    height: 40px;
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+}
+
+#main-header {
+  background-color: #333;
+  color: #fff;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-title {
+  margin: 0;
+}
+
+.login-page {
+  background-color: #f2f2f2;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10%;
+}
+
+.form-input {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.form-submit {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+#form_login{
+  margin-top: 2%
+}
+
+/* register */
+
+.register_page{
+    background-color: #f2f2f2;
+    flex-grow: 1;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  
-  /*login page style*/
-  .login-page{
-    background-color: #ffffff;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .login-page form{
-    background-color: #ffffff;
-    padding: 20px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    width: 400px;
-    text-align: center;
+  #register_form{
+    margin-top: 0%
   }
   
-  #main-header{
-    background-color: #3E4551;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    margin: 15px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-  }
-  .header-title{
-    color: #FFFFFF;
-    font-size: 20px;
-    margin: 0;
-  }
-  
-  .form-input{
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: #3E4551;
-    color: #FFFFFF;
-  }
-  .form-submit{
-    background-color: #3E4551;
-    color: #FFFFFF;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-  }
-    
+footer {
+  background-color: #333;
+  color: #fff;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8%;
+}
+
+.label {
+  padding: 0px 90px;
+}
+
+#lab {
+  padding: 0px 93px;
+}
+
+#msg {
+  text-align: center;
+}
+
+.title_h1 {
+  text-align: center;
+  text-decoration: underline;
+}
+.lab_login{
+  text-align: center;
+}
+#input_pass{
+  padding-left: 43px;
+}
+#phone_input{
+  padding-left: 25px;
+}
+#email_input{
+  padding-left: 30px;
+}

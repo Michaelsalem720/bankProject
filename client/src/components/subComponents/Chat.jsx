@@ -11,8 +11,9 @@ function Chat() {
         <div>
             <h1>Chat</h1>
             <form onSubmit={hello}>
-                <button>submit</button>
+                <button>chat</button>
             </form>
+            
         </div>
     )
 }

@@ -16,6 +16,17 @@ router.get('/', (req, res, next) => {
         res.json(result)
     })
 });
+
+router.get('/:id', (req, res, next) => {
+    let sql = `SELECT * FROM people WHERE id = ${req.params.id} AND deleted = 0`
+    console.log(sql);
+    con.query(sql, (err, result) => {
+        if (err) {
+            throw err
+        }
+        res.json(result)
+    })
+});
 /////////////////////////from michael
 // router.post('/', (req, res, next) => {
 //     let { firstName, lastName, username, password, email, phone, q1, a1, q2, a2, dob } = req.body;

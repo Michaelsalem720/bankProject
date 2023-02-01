@@ -53,18 +53,16 @@ function Login() {
 
     return (
         <>
-            <header id="main-header">
-                <h1 className="header-title">My Bank</h1>
-            </header>
+            <h1 className="title_h1">Login</h1>
             <main className="login-page">
-                <form onSubmit={login}>
+                <form id="form_login" onSubmit={login}>
                     <div>
-                        <label htmlFor="username">{'Username: '}
+                        <label className="label" htmlFor="username">{'Username: '}
                             <input className="form-input" type="text" name="username" value={loginInfo.username} onChange={handleChange} />
                         </label>
                     </div>
                     <div>
-                        <label htmlFor="password">{'Password: '}
+                        <label id="lab" className="label" htmlFor="password">{'Password: '}
                             <input className="form-input" type="text" name="password" value={loginInfo.password} onChange={handleChange} />
                         </label>
                     </div>
@@ -72,9 +70,6 @@ function Login() {
             <button className="form-submit" onClick={handleRegister}>Register</button>
                 </form>
             </main>
-            <footer>
-                Copyright © My Bank 2023
-            </footer>
         </>
     );
 }

@@ -15,15 +15,17 @@ function Home() {
     //     console.log(id);
     // },[id])
     return (
-        <div>{`id: ${userId}`}
+        <>
+        {/* // <div>{`id: ${userId}`} */}
             <Navigation />
             {/* <MoveMoney /> */}
             {/* <CreditCard /> */}
-            <DepositChecks />
-            <DownloadStatements />
+            {/* <DepositChecks /> */}
+            {/* <DownloadStatements /> */}
             {/* <Chat /> */}
             {/* <SecSettings /> */}
-        </div>
+        {/* </div> */}
+        </>
     )
 }
 
