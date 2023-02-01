@@ -12,7 +12,7 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/:id', (req, res, next) => {
-    // let cookie = req.body.cookie;
+    console.log('req.body.cookie; ', req.body.cookie);
     let token = req.body.cookie.split("=")[1];
     let sql = `SELECT account_number AS account 
     FROM accounts 
@@ -25,6 +25,7 @@ router.post('/:id', (req, res, next) => {
     con.query(sql, (err, result) => {
         if (err) throw err;
         res.json(result)
+        console.log(result);
     })
 });
 

@@ -27,32 +27,42 @@ router.get('/', (req, res, next) => {
 //     })
 // });
 
+// credit: "",
+// debit: "",
+// toAccount: "",
+// date: "",
+// fromAccount: "",
+// routingNumber: "",
+// checkNumber: ""
+
 router.post('/:id', (req, res, next) => {
-    let { checkNumber, amount, depositInto, date, accountNumber, routingNumber } = req.body.data;
+    let { credit, debit, myAccount, date, foreignAccount, routingNumber, checkNumber } = req.body
+    // let { checkNumber, amount, depositInto, date, accountNumber, routingNumber } = req.body.data;
     console.log(date);
     let token = req.body.cookie.split("=")[1];
-    if (routingNumber === 102000123) { }
+    if (routingNumber === 102000123) { }//deduct from another user
+    if (checkNumber) {
+    }
+
     let sql2 = `SELECT COUNT(*) AS count FROM transactions 
-    WHERE account_number = ${accountNumber} 
-    AND routing_number = ${routingNumber} 
-    AND check_number = ${checkNumber}`;
+        WHERE account_number = ${foreignAccount} 
+        AND routing_number = ${routingNumber} 
+        AND check_number = ${checkNumber}`;
     con.query(sql2, (err, result) => {
-        if (err) {
-            throw err
-        }
+        if (err) throw err;
         console.log('result: ', result);
         if (result[0].count === 0) {
             let sql = `INSERT INTO transactions (account_id, credit, debit, date, account_number, routing_number, check_number)
-            SELECT accounts.id, ${amount} AS credit, 0 AS debit, '${date}' AS date, ${accountNumber} AS account_number, ${routingNumber} AS routing_number, ${checkNumber} AS check_number
+            SELECT accounts.id, ${credit} AS credit, ${debit} AS debit, '${date}' AS date, ${foreignAccount} AS account_number, ${routingNumber} AS routing_number, ${checkNumber || null} AS check_number
             FROM secure_data
             JOIN accounts ON secure_data.user_id = accounts.user_id
             WHERE secure_data.user_id = ${req.params.id}
-            AND account_number = ${depositInto}
+            AND account_number = ${myAccount}
             AND secure_data.token = '${token}'`;
             con.query(sql, (err, result) => {
                 if (err) throw err
                 console.log('result: ', result);
-                res.status(200).json({message: `Check ${checkNumber} deposited for $${amount}`})
+                res.status(200).json({ message: `Check ${checkNumber} deposited for $${credit}` })
             })
         }
         else {

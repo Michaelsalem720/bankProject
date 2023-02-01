@@ -134,6 +134,7 @@ function Register() {
                             name="phone"
                             value={userInfo.phone}
                             onChange={handleChange}
+                            maxLength='10'
                         />
                     </label>
                     <br />

@@ -43,11 +43,12 @@ function Login() {
 
     function createCookie() {
         let date = new Date();
-        date.setTime(date.getTime() + (1 * 60 * 60 * 1000));
+        date.setTime(date.getTime() + (12 * 60 * 60 * 1000));
         let expires = date.toUTCString();
         let token = Math.random().toString().substring(2, 15)
-        let cookie = `token=${token}; expires=${expires}; path=${"/home"}`;
-        document.cookie = cookie;
+        let Cookie = `token=${token}; expires=${expires}; path=/home`;
+        document.cookie = Cookie;
+        console.log(Cookie);
         return token
     }
 

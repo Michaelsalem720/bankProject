@@ -42,8 +42,8 @@ function Navigation() {
             <div>
                 {show === 'home' && <HomePage />}
                 {show === 'check' && <DepositChecks />}
-                {show === 'creditCard' && <CreditCard />}
                 {show === 'move' && <MoveMoney />}
+                {show === 'creditCard' && <CreditCard />}
                 {show === 'statements' && <BankActionsAndStatements />}
                 {show === 'settings' && <Settings />}
                 {show === 'chat' && <Chat />}

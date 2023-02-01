@@ -3,24 +3,24 @@ import React, { useState, useEffect } from "react";
 function DepositChecks() {
 
     const [formData, setFormData] = useState({
-        checkNumber: "",
-        amount: "",
-        depositInto: "",
+        credit: "",
+        debit: "",
+        myAccount: "",
         date: "",
-        accountNumber: "",
-        routingNumber: ""
+        foreignAccount: "",
+        routingNumber: "",
+        checkNumber: ""
     });
 
-    const [userAccountNumbers, setUserAccountNumbers] = useState([]);
+    const [myAccounts, setMyAccounts] = useState([]);
+    useEffect(() => {
+        fetchMyAccounts();
+    }, []);
 
     let userId = sessionStorage.getItem("userId");
 
-    useEffect(() => {
-        fetchUserAccountNumbers();
-        console.log('fetch account numbers');
-    }, []);
 
-    async function fetchUserAccountNumbers() {
+    async function fetchMyAccounts() {
         console.log('hello world');
         const res = await fetch(`http://localhost:8080/accounts/${userId}`, {
             method: "POST",
@@ -28,10 +28,9 @@ function DepositChecks() {
             body: JSON.stringify({ cookie: document.cookie })
         });
         const data = await res.json();
-        console.log('data: ', data);
-        setUserAccountNumbers(data);
+        setMyAccounts(data);
     };
-    const handleInputChange = event => {
+    const handleChange = event => {
         setFormData({ ...formData, [event.target.name]: event.target.value });
     };
 
@@ -57,7 +56,7 @@ function DepositChecks() {
                             type="text"
                             name="checkNumber"
                             value={formData.checkNumber}
-                            onChange={handleInputChange}
+                            onChange={handleChange}
                         />
                     </label>
                 </div>
@@ -66,9 +65,9 @@ function DepositChecks() {
                         Amount:
                         <input
                             type="text"
-                            name="amount"
-                            value={formData.amount}
-                            onChange={handleInputChange}
+                            name="credit"
+                            value={formData.credit}
+                            onChange={handleChange}
                         />
                     </label>
                 </div>
@@ -76,14 +75,14 @@ function DepositChecks() {
                     <label>
                         Deposit Into:
                         <select
-                            name="depositInto"
-                            value={formData.depositInto}
-                            onChange={handleInputChange}
+                            name="toAccount"
+                            value={formData.toAccount}
+                            onChange={handleChange}
                         >
-                            <option value="">Select an Account Number</option>
+                            <option value="">Select an Account</option>
 
-                            {userAccountNumbers && userAccountNumbers.length > 0 &&
-                                userAccountNumbers.map(obj => (
+                            {myAccounts && myAccounts.length > 0 &&
+                                myAccounts.map(obj => (
                                     <option key={obj.account} value={obj.account}>
                                         {obj.account}
                                     </option>
@@ -99,7 +98,7 @@ function DepositChecks() {
                             type="date"
                             name="date"
                             value={formData.date}
-                            onChange={handleInputChange}
+                            onChange={handleChange}
                         />
                     </label>
                 </div>
@@ -108,9 +107,9 @@ function DepositChecks() {
                         Account Number:
                         <input
                             type="text"
-                            name="accountNumber"
-                            value={formData.accountNumber}
-                            onChange={handleInputChange}
+                            name="foreignAccount"
+                            value={formData.foreignAccount}
+                            onChange={handleChange}
                         />
                     </label>
                 </div>
@@ -121,7 +120,7 @@ function DepositChecks() {
                             type="text"
                             name="routingNumber"
                             value={formData.routingNumber}
-                            onChange={handleInputChange}
+                            onChange={handleChange}
                             maxLength ='9'
                         />
                     </label>
