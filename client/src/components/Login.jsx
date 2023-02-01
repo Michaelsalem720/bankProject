@@ -17,12 +17,12 @@ function Login() {
 
     async function login(e) {
         e.preventDefault();
-        let token = createCookie('token')
+        let token = createCookie()
         try {
             const response = await fetch("http://localhost:8080/people", {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({data:loginInfo,token:token})
+                body: JSON.stringify({data:loginInfo,cookie:token})
             });
             const data = await response.json();
             console.log('data: ', data);
@@ -44,13 +44,12 @@ function Login() {
         navigate('/register')
     }
 
-    function createCookie(name) {
+    function createCookie() {
         let date = new Date();
         date.setTime(date.getTime() + (1 * 60 * 60 * 1000));
         let expires = date.toUTCString();
-        let token = Math.random() * Math.pow(10, 17).toString()
-        console.log(token);
-        let cookie = `${name}=${token}; expires=${expires}; path=${("/home")}`;
+        let token = Math.random().toString().substring(2, 15)
+        let cookie = `token=${token}; expires=${expires}; path=${"/home"}`;
         document.cookie = cookie;
         return token
     }

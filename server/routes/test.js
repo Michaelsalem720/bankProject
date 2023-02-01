@@ -17,4 +17,12 @@ router.get('/', (req, res, next) => {
     })
 });
 
+router.post('/:id', (req, res, next) => {
+    console.log('req.cookies', req.cookies);
+    let sql = `SELECT * from secure_data WHERE user_id = ${req.params.id}`
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.json(result)
+    })
+})
 module.exports = router;

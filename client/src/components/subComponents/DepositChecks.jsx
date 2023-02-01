@@ -20,7 +20,11 @@ function DepositChecks() {
     }, []);
 
     const fetchUserAccountNumbers = async () => {
-        const response = await fetch(`http://localhost:8080/people/accounts/${userId}`);
+        let token = document.cookie
+        console.log(token);
+        const response = await fetch(`http://localhost:8080/accounts/${userId}`
+            , { method: "GET", credentials: 'include' }
+        );
         const data = await response.json();
         setUserAccountNumbers(data);
     };

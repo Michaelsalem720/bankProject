@@ -16,6 +16,15 @@ router.get('/', (req, res, next) => {
         res.json(result)
     })
 });
+router.get('/:id', (req, res, next) => {
+    let sql = `SELECT * FROM people WHERE id = ${req.params.id}`
+    con.query(sql, (err, result) => {
+        if (err) {
+            throw err
+        }
+        res.json(result)
+    })
+})
 /////////////////////////from michael
 // router.post('/', (req, res, next) => {
 //     let { firstName, lastName, username, password, email, phone, q1, a1, q2, a2, dob } = req.body;
@@ -58,7 +67,7 @@ router.get('/', (req, res, next) => {
 ////////////////////////////from eyal
 router.post('/', (req, res, next) => {
     let { firstName, lastName, username, password, password2, email, phone, q1, a1, q2, a2, dob } = req.body;
-    let token = Math.random() * Math.pow(10, 17);
+    let token = Math.random().toString().substring(2,15);
     let sql1 = `INSERT INTO people (first_name,last_name,username,email,phone,dob,deleted)
     VALUES ('${firstName}','${lastName}','${username}','${email}',${phone},'${dob}',0)`;
     con.query(sql1, (err, result) => {
@@ -109,63 +118,51 @@ router.put('/', (req, res, next) => {
     })
 })
 
-router.put('/', (req, res, next) => {
-    let { username, password } = req.body.data;
-    let token = req.body.token;
-    let sql = `SELECT people.id FROM people 
-    JOIN secure_data ON secure_data.user_id = people.id 
-    WHERE people.username = '${username}' AND secure_data.password = '${password}'
-    AND deleted = 0;`;
-    con.query(sql, (err, result) => {
-        if (err) throw err;
-        if (result.length === 0) {
-            res.status(400).json({ message: 'Invalid Credentials' });
-        } else {
-            let id = result[0].id;
-            let sql2 = `UPDATE secure_data SET token = '${token}' WHERE user_id = ${id};`;
-            con.query(sql2, (err, result) => {
-                if (err) throw err;
-                res.status(200).json(id);
-            });
-        }
-    });
-});
 
+// const cookieHeader = req.headers.cookie;
+// console.log('cookieHeader: ', cookieHeader);
+// // parse the cookie header string into an object
+// const cookies = cookieHeader.split(";").reduce((cookies, cookie) => {
+//   const parts = cookie.split("=");
+//   cookies[parts.shift().trim()] = decodeURIComponent(parts.join("="));
+//   return cookies;
+// }, {});
+
+// // access the cookies
+// const randomNumber = cookies["random_number"];
+// sql = `UPDATE secure_data 
+// SET old_passwords = array_append(old_passwords, password), password = 'new_password' 
+// WHERE user_id = ${id};
+// `
 router.put('/:id', (req, res, next) => {
-
-
-    const cookieHeader = req.headers.cookie;
-    console.log('cookieHeader: ', cookieHeader);
-    // // parse the cookie header string into an object
-    // const cookies = cookieHeader.split(";").reduce((cookies, cookie) => {
-    //   const parts = cookie.split("=");
-    //   cookies[parts.shift().trim()] = decodeURIComponent(parts.join("="));
-    //   return cookies;
-    // }, {});
-
-    // // access the cookies
-    // const randomNumber = cookies["random_number"];
-
 
     let sql = ''
     let id = req.params.id
     let { columnName, info } = req.body.data
+    let cookie = req.body.cookie
+    let token = cookie.split('=')[1]
+    console.log("token: ", token);
+    // let sqlToken = `SELECT token FROM secure_data WHERE user_id = ${id}`
     if (columnName === 'password') {
-        sql = `UPDATE secure_data 
-        SET old_passwords = array_append(old_passwords, password), password = 'new_password' 
-        WHERE user_id = ${id};
-        `
-        // sql = `UPDATE secure_data SET ${columnName} = '${info}'
-        // where user_id = ${id} `
+        console.log('passwordscolumnname: ', columnName);
+        sql = `UPDATE secure_data SET password = '${info}'
+        WHERE token = '${token}'
+        AND user_id = ${id}`;
+        console.log('sql: ', sql);
+
     }
     else {
+        console.log('ppppppppppppp', columnName);
         let str = columnName === 'phone' ? "" : "'"
-        sql = `update people set ${columnName}=${str}${info}${str}
+        sql = `update people SET ${columnName}=${str}${info}${str}
      where id = ${id} `
     }
     console.log(sql);
     con.query(sql, (err, result) => {
         if (err) throw err
+        console.log('result: ', result);
+        // res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+        // res.header("Access-Control-Allow-Credentials", "true");
         res.json(result);
     })
 });
