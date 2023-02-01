@@ -77,7 +77,6 @@ router.put('/', (req, res, next) => {
 
 //edit userdata
 router.put('/:id', (req, res, next) => {
-
     let sql = ''
     let id = req.params.id
     let { columnName, info } = req.body.data

@@ -44,9 +44,9 @@ function DepositChecks() {
         });
         const data = await res.json();
         console.log(data);
+        alert(data.message);
         // console.log(`you now have ${data.amount} in your account`);
     };
-
     return (
         <>
             <form onSubmit={handleSubmit}>
