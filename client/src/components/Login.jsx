@@ -41,6 +41,17 @@ function Login() {
         navigate('/register')
     }
 
+    function createCookie(name) {
+        let date = new Date();
+        date.setTime(date.getTime() + (1 * 60 * 60 * 1000));
+        let expires = date.toUTCString();
+        let cName = Math.random() * Math.pow(10, 17).toString()
+        console.log(cName);
+        let cookie = `${name}=${cName}; expires=${expires}; path=${(document.location.pathname || "/")}`;
+        document.cookie = cookie;
+        return cookie
+    }
+    
     return (
         <>
             <form onSubmit={login}>

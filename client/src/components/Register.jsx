@@ -34,10 +34,12 @@ function Register() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        if (!validateData()) {
+        if (validateData()) {
+            postData();
+        }
+        else {
             return "try again";
         }
-        postData();
     }
 
     async function postData() {
