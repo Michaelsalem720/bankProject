@@ -20,7 +20,8 @@ function Settings() {
     function updateValue(e) {
         console.log(userId);
         e.preventDefault();
-        fetch(`http://localhost:8080/people/${userId}`, {//need to change back to ${id}
+        fetch(`http://127.0.0.1:8080/people/${userId}`, {//need to change back to ${id}
+            credentials: 'include',
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"

@@ -17,17 +17,15 @@ function Login() {
 
     async function login(e) {
         e.preventDefault();
+        let token = createCookie('token')
         try {
-            const response = await fetch("http://localhost:8080/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(loginInfo)
+            const response = await fetch("http://localhost:8080/people", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({data:loginInfo,token:token})
             });
             const data = await response.json();
             if (data[0].id) {
-                console.log(data[0].id);
                 sessionStorage.setItem("userId", data[0].id);
                 setId(data[0].id)
                 navigate('/home')
@@ -41,6 +39,17 @@ function Login() {
 
     function handleRegister() {
         navigate('/register')
+    }
+
+    function createCookie(name) {
+        let date = new Date();
+        date.setTime(date.getTime() + (1 * 60 * 60 * 1000));
+        let expires = date.toUTCString();
+        let token = Math.random() * Math.pow(10, 17).toString()
+        console.log(token);
+        let cookie = `${name}=${token}; expires=${expires}; path=${("/home")}`;
+        document.cookie = cookie;
+        return token
     }
 
     return (

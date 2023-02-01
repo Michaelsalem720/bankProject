@@ -30,7 +30,7 @@ router.get('/a', (req, res, next) => {
 });
 
 
-router.post('/', (req, res, next) => {
+router.post('/id', (req, res, next) => {
     console.log(req.body);
     let { checkNumber, amount, depositInto, date, accountNumber, routingNumber } = req.body;
     let sql = `INSERT INTO transactions (account_id, credit, debit, date, account_number, routing_number, check_number) 
