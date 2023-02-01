@@ -45,20 +45,28 @@ function Login() {
 
     return (
         <>
-            <form onSubmit={login}>
-                <div>
-                    <label htmlFor="username">{'Username: '}
-                        <input type="text" name="username" value={loginInfo.username} onChange={handleChange} />
-                    </label>
-                </div>
-                <div>
-                    <label htmlFor="password">{'Password: '}
-                        <input type="text" name="password" value={loginInfo.password} onChange={handleChange} />
-                    </label>
-                </div>
-                <button type="submit">Login</button>
-            </form>
-            <button onClick={handleRegister}>Register</button>
+            <header id="main-header">
+                <h1 className="header-title">My Bank</h1>
+            </header>
+            <main className="login-page">
+                <form onSubmit={login}>
+                    <div>
+                        <label htmlFor="username">{'Username: '}
+                            <input className="form-input" type="text" name="username" value={loginInfo.username} onChange={handleChange} />
+                        </label>
+                    </div>
+                    <div>
+                        <label htmlFor="password">{'Password: '}
+                            <input className="form-input" type="text" name="password" value={loginInfo.password} onChange={handleChange} />
+                        </label>
+                    </div>
+                    <button className="form-submit" type="submit">Login</button>
+            <button className="form-submit" onClick={handleRegister}>Register</button>
+                </form>
+            </main>
+            <footer>
+                Copyright © My Bank 2023
+            </footer>
         </>
     );
 }

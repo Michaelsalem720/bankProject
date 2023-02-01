@@ -61,10 +61,14 @@ function Register() {
     }
 
     return (
-
+        <>
+        <header id="main-header">
+        <h1 className="header-title">My Bank</h1>
+    </header>
+    <main className="login-page">
         <form onSubmit={handleSubmit}>
             <label>{`First Name: `}
-                <input
+                <input className="form-input"
                     type="text"
                     name="firstName"
                     value={userInfo.firstName}
@@ -73,7 +77,7 @@ function Register() {
             </label>
             <br />
             <label>{`Last Name: `}
-                <input
+                <input className="form-input"
                     type="text"
                     name="lastName"
                     value={userInfo.lastName}
@@ -82,7 +86,7 @@ function Register() {
             </label>
             <br />
             <label>{`Username: `}
-                <input
+                <input className="form-input"
                     type="text"
                     name="username"
                     value={userInfo.username}
@@ -91,7 +95,7 @@ function Register() {
             </label>
             <br />
             <label>{`Password: `}
-                <input
+                <input className="form-input"
                     type="password"
                     name="password"
                     value={userInfo.password}
@@ -100,7 +104,7 @@ function Register() {
             </label>
             <br />
             <label>{`Re-enter Password: `}
-                <input
+                <input className="form-input"
                     type="password"
                     name="password2"
                     value={userInfo.password2}
@@ -109,7 +113,7 @@ function Register() {
             </label>
             <br />
             <label>{`Email: `}
-                <input
+                <input className="form-input"
                     type="email"
                     name="email"
                     value={userInfo.email}
@@ -118,7 +122,7 @@ function Register() {
             </label>
             <br />
             <label>{`Phone: `}
-                <input
+                <input className="form-input"
                     type="tel"
                     name="phone"
                     value={userInfo.phone}
@@ -138,7 +142,7 @@ function Register() {
             </label>
             <br />
             <label>{`Answer 1: `}
-                <input
+                <input className="form-input"
                     type="text"
                     name="a1"
                     value={userInfo.a1}
@@ -158,7 +162,7 @@ function Register() {
             </label>
             <br />
             <label>{`Answer 2: `}
-                <input
+                <input className="form-input"
                     type="text"
                     name="a2"
                     value={userInfo.a2}
@@ -169,8 +173,13 @@ function Register() {
             <label>
                 <input type="date" name="dob" value={userInfo.dob} onChange={handleChange} />
             </label>
-            <button type="submit">Register</button>
+            <button className="form-submit" type="submit">Register</button>
         </form>
+        </main>
+            <footer>
+                Copyright © My Bank 2023
+            </footer>
+        </>
     );
 };
 

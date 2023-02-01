@@ -7,6 +7,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 // import UserId from "./context/UserId";
 import UserContext from "./context/userContext";
+import './App.css';
 
 function App() {
   const [id, setId] = useState();

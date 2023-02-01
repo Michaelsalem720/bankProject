@@ -29,15 +29,7 @@ router.get('/', (req, res, next) => {
 //     })
 // });
 
-router.get('/sq', (req, res, next) => {
-    let sql = "SELECT * FROM security_questions"
-    con.query(sql, function (err, result) {
-        if (err) {
-            throw err
-        }
-        res.json(result)
-    })
-});
+
 
 // router.get('/sq', (req, res, next) => {
 //     let sql = "SELECT * FROM security_questions"
