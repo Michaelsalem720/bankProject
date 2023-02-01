@@ -83,7 +83,7 @@ for (let i = 0; i < 10; i++) {
     years.push(currentYear - i);
 }
 
-const DatePicker = () => {
+const BankActionsAndStatements = () => {
     const [selectedMonth, setSelectedMonth] = useState(0);
     const [selectedYear, setSelectedYear] = useState(0);
 
@@ -105,7 +105,7 @@ const DatePicker = () => {
     );
 };
 
-export default DatePicker;
+export default BankActionsAndStatements;
 
 
 

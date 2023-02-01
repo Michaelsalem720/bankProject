@@ -56,84 +56,86 @@ function DepositChecks() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>
-                    Check Number:
-                    <input
-                        type="text"
-                        name="checkNumber"
-                        value={formData.checkNumber}
-                        onChange={handleInputChange}
-                    />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Amount:
-                    <input
-                        type="text"
-                        name="amount"
-                        value={formData.amount}
-                        onChange={handleInputChange}
-                    />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Deposit Into:
-                    <select
-                        name="depositInto"
-                        value={formData.depositInto}
-                        onChange={handleInputChange}
-                    >
-                        <option value="">Select an Account Number</option>
+        <>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label>
+                        Check Number:
+                        <input
+                            type="text"
+                            name="checkNumber"
+                            value={formData.checkNumber}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Amount:
+                        <input
+                            type="text"
+                            name="amount"
+                            value={formData.amount}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Deposit Into:
+                        <select
+                            name="depositInto"
+                            value={formData.depositInto}
+                            onChange={handleInputChange}
+                        >
+                            <option value="">Select an Account Number</option>
 
-                        {userAccountNumbers && userAccountNumbers.length > 0 &&
-                            userAccountNumbers.map(obj => (
-                                <option key={obj.account} value={obj.account}>
-                                    {obj.account}
-                                </option>
-                            ))}
-                    </select>
-                </label>
-            </div>
+                            {userAccountNumbers && userAccountNumbers.length > 0 &&
+                                userAccountNumbers.map(obj => (
+                                    <option key={obj.account} value={obj.account}>
+                                        {obj.account}
+                                    </option>
+                                ))}
+                        </select>
+                    </label>
+                </div>
 
-            <div>
-                <label>
-                    Date:
-                    <input
-                        type="date"
-                        name="date"
-                        value={formData.date}
-                        onChange={handleInputChange}
-                    />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Account Number:
-                    <input
-                        type="text"
-                        name="accountNumber"
-                        value={formData.accountNumber}
-                        onChange={handleInputChange}
-                    />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Routing Number:
-                    <input
-                        type="text"
-                        name="routingNumber"
-                        value={formData.routingNumber}
-                        onChange={handleInputChange}
-                    />
-                </label>
-            </div>
-            <button type="submit">Deposit Check</button>
-        </form>
+                <div>
+                    <label>
+                        Date:
+                        <input
+                            type="date"
+                            name="date"
+                            value={formData.date}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Account Number:
+                        <input
+                            type="text"
+                            name="accountNumber"
+                            value={formData.accountNumber}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Routing Number:
+                        <input
+                            type="text"
+                            name="routingNumber"
+                            value={formData.routingNumber}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                </div>
+                <button type="submit">Deposit Check</button>
+            </form>
+        </>
     );
 };
 

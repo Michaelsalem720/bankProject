@@ -8,6 +8,7 @@ import Register from "./components/Register";
 // import UserId from "./context/UserId";
 import UserContext from "./context/userContext";
 import './App.css';
+import './Navbar.css';
 
 function App() {
   const [id, setId] = useState();

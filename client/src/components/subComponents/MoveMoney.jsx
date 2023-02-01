@@ -8,7 +8,7 @@ function MoveMoney() {
 
     return (
         <div>
-            <h1>MoveMoney</h1>
+            <h1>Move Money:</h1>
             <form onSubmit={hello}>
                 <button>submit</button>
             </form>

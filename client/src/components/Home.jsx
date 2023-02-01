@@ -28,16 +28,17 @@ function Home() {
     //     console.log(id);
     // },[id])
     return (
-        <div>{`id: ${userId}`}
-        {/* <button onClick={testFetch}>testFetch</button> */}
+        <>
+        {/* // <div>{`id: ${userId}`} */}
             <Navigation />
             {/* <MoveMoney /> */}
             {/* <CreditCard /> */}
-            <DepositChecks />
+            {/* <DepositChecks /> */}
             {/* <DownloadStatements /> */}
             {/* <Chat /> */}
-            <SecSettings />
-        </div>
+            {/* <SecSettings /> */}
+        {/* </div> */}
+        </>
     )
 }
 

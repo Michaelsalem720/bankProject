@@ -42,7 +42,7 @@ function Settings() {
     }
     return (
         <div>
-            <h1>Settings</h1>
+            <h1>Settings:</h1>
             <form onSubmit={updateValue}>
                 <p id="username" onClick={hello}>change username</p>
                 <p id="password" onClick={hello}>change password</p>
