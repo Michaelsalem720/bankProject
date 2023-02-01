@@ -39,7 +39,7 @@ router.post('/', (req, res, next) => {
                 return res.status(500).send({ error: 'Error inserting data into secure_data table' });
             }
             let sql3 = `insert into accounts (user_id,account_number,routing_number)
-            VALUES (${id},${id + 364179},10200023);`;
+            VALUES (${id},${id + 364179},102000123);`;
             con.query(sql3, (err, result) => {
                 if (err) {
                     return res.status(500).send({ error: 'Error inserting data into accounts table' });
