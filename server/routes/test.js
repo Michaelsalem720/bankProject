@@ -1,17 +1,12 @@
-const { table } = require('console');
-var express = require('express');
-var router = express.Router();
-let mysql = require('mysql')
-let con = require('../DB/con')
-
+const express = require('express');
+const router = express.Router();
+const con = require('../DB/con')
 
 router.get('/', (req, res, next) => {
     let sql = `SELECT * from secure_data`;
-    // .id FROM people JOIN passwords ON people.id = passwords.user_id
-    // WHERE deleted = 0 AND username = '${username}' AND password = '${password}'`
     con.query(sql, (err, result) => {
         if (err) {
-            throw err
+            return next(new Error('Error retrieving data from database'));
         }
         res.json(result)
     })
@@ -21,8 +16,9 @@ router.post('/:id', (req, res, next) => {
     console.log('req.cookies', req.cookies);
     let sql = `SELECT * from secure_data WHERE user_id = ${req.params.id}`
     con.query(sql, (err, result) => {
-        if (err) throw err;
+        if (err) return next(new Error('Error retrieving user data from database'));
         res.json(result)
     })
 })
+
 module.exports = router;
