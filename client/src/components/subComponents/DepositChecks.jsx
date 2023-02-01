@@ -17,15 +17,18 @@ function DepositChecks() {
 
     useEffect(() => {
         fetchUserAccountNumbers();
+        console.log('fetch account numbers');
     }, []);
 
-    const fetchUserAccountNumbers = async () => {
-        let token = document.cookie
-        console.log(token);
-        const response = await fetch(`http://localhost:8080/accounts/${userId}`
-            , { method: "GET", credentials: 'include' }
-        );
-        const data = await response.json();
+    async function fetchUserAccountNumbers() {
+        console.log('hello world');
+        const res = await fetch(`http://localhost:8080/accounts/${userId}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cookie: document.cookie })
+        });
+        const data = await res.json();
+        console.log('data: ', data);
         setUserAccountNumbers(data);
     };
     const handleInputChange = event => {
@@ -34,26 +37,15 @@ function DepositChecks() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let Cookie = createCookie('name')
-        const response = await fetch(`http://localhost:8080/transactions`, {
+        const res = await fetch(`http://localhost:8080/transactions/${userId}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: { data: JSON.stringify(formData), Cookie: document.cookie }
+            body: JSON.stringify({ data: formData, cookie: document.cookie })
         });
-        const data = await response.json();
+        const data = await res.json();
         console.log(data);
         // console.log(`you now have ${data.amount} in your account`);
     };
-    function createCookie(name) {
-        let date = new Date();
-        date.setTime(date.getTime() + (1 * 60 * 60 * 1000));
-        let expires = date.toUTCString();
-        let cName = Math.random() * Math.pow(10, 17).toString()
-        console.log(cName);
-        let cookie = `${name}=${cName}; expires=${expires}; path=/home`;
-        document.cookie = cookie;
-        return cookie
-    }
 
     return (
         <>

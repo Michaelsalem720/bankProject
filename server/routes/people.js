@@ -14,7 +14,6 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
     let sql = `SELECT * FROM people WHERE id = ${req.params.id} AND deleted = 0`
-    console.log(sql);
     con.query(sql, (err, result) => {
         if (err) throw err
         res.json(result)
@@ -39,7 +38,7 @@ router.post('/', (req, res, next) => {
                 return res.status(500).send({ error: 'Error inserting data into secure_data table' });
             }
             let sql3 = `insert into accounts (user_id,account_number,routing_number)
-            VALUES (${id},${id + 364179},10200023);`;
+            VALUES (${id},${id + 364179},102000123);`;
             con.query(sql3, (err, result) => {
                 if (err) {
                     return res.status(500).send({ error: 'Error inserting data into accounts table' });
@@ -54,9 +53,6 @@ router.post('/', (req, res, next) => {
 router.put('/', (req, res, next) => {
     let { username, password } = req.body.data;
     let token = req.body.cookie;
-    // let token = cookie.split('=')[1];
-    // console.log('cookie: ', cookie);
-    console.log('token: ', token);
     let sql = `SELECT people.id FROM people 
     JOIN secure_data 
         ON secure_data.user_id = people.id 
@@ -87,18 +83,12 @@ router.put('/:id', (req, res, next) => {
     let { columnName, info } = req.body.data
     let cookie = req.body.cookie
     let token = cookie.split('=')[1]
-    console.log("token: ", token);
-    // let sqlToken = `SELECT token FROM secure_data WHERE user_id = ${id}`
     if (columnName === 'password') {
-        console.log('passwordscolumnname: ', columnName);
         sql = `UPDATE secure_data SET password = '${info}'
         WHERE token = '${token}'
         AND user_id = ${id}`;
-        console.log('sql: ', sql);
-
     }
     else {
-        console.log('ppppppppppppp', columnName);
         let str = columnName === 'phone' ? "" : "'"
         sql = `update people SET ${columnName}=${str}${info}${str}
      where id = ${id} `
@@ -106,9 +96,6 @@ router.put('/:id', (req, res, next) => {
     console.log(sql);
     con.query(sql, (err, result) => {
         if (err) throw err
-        console.log('result: ', result);
-        // res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-        // res.header("Access-Control-Allow-Credentials", "true");
         res.json(result);
     })
 });

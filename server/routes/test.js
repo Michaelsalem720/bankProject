@@ -6,7 +6,7 @@ let con = require('../DB/con')
 
 
 router.get('/', (req, res, next) => {
-    let sql = `SELECT username, password FROM secure_data JOIN people ON people.id = secure_data.user_id`
+    let sql = `SELECT username, password, token FROM secure_data JOIN people ON people.id = secure_data.user_id`
     con.query(sql, (err, result) => {
         if (err) {
             throw err
