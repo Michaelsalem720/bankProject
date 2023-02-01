@@ -25,10 +25,9 @@ function Login() {
                 body: JSON.stringify({data:loginInfo,token:token})
             });
             const data = await response.json();
-            console.log(data);
-            if (data) {
-                sessionStorage.setItem("userId", data);
-                setId(data);
+            if (data.msg) {
+                sessionStorage.setItem("userId", data.id);
+                setId(data.id)
                 navigate('/home')
             } else {
                 console.log("Login failed");

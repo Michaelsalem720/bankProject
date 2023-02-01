@@ -100,12 +100,10 @@ router.put('/', (req, res, next) => {
         }
         else {
             let id = result[0].id;
-            console.log('id: ', id);
             let sql2 = `UPDATE secure_data SET token = '${token}' WHERE user_id = ${id}`;
-            console.log('sql2: ', sql2);
             con.query(sql2, (err, result) => {
                 if (err) throw err;
-                res.status(200).json(id)
+                res.status(200).json({ msg: true, id: id })
             })
         }
     })
