@@ -25,9 +25,10 @@ function Login() {
                 body: JSON.stringify({data:loginInfo,token:token})
             });
             const data = await response.json();
-            if (data[0].id) {
-                sessionStorage.setItem("userId", data[0].id);
-                setId(data[0].id)
+            console.log(data);
+            if (data) {
+                sessionStorage.setItem("userId", data);
+                setId(data);
                 navigate('/home')
             } else {
                 console.log("Login failed");
@@ -46,7 +47,6 @@ function Login() {
         date.setTime(date.getTime() + (1 * 60 * 60 * 1000));
         let expires = date.toUTCString();
         let token = Math.random() * Math.pow(10, 17).toString()
-        console.log(token);
         let cookie = `${name}=${token}; expires=${expires}; path=${("/home")}`;
         document.cookie = cookie;
         return token

@@ -85,7 +85,6 @@ router.post('/', (req, res, next) => {
 });
 
 router.put('/', (req, res, next) => {
-    console.log(req.body);
     let { username, password } = req.body.data;
     let token = req.body.token;
     let sql = `SELECT people.id FROM people 
@@ -112,31 +111,8 @@ router.put('/', (req, res, next) => {
     })
 })
 
-router.put('/', (req, res, next) => {
-    let { username, password } = req.body.data;
-    let token = req.body.token;
-    let sql = `SELECT people.id FROM people 
-    JOIN secure_data ON secure_data.user_id = people.id 
-    WHERE people.username = '${username}' AND secure_data.password = '${password}'
-    AND deleted = 0;`;
-    con.query(sql, (err, result) => {
-        if (err) throw err;
-        if (result.length === 0) {
-            res.status(400).json({ message: 'Invalid Credentials' });
-        } else {
-            let id = result[0].id;
-            let sql2 = `UPDATE secure_data SET token = '${token}' WHERE user_id = ${id};`;
-            con.query(sql2, (err, result) => {
-                if (err) throw err;
-                res.status(200).json(id);
-            });
-        }
-    });
-});
 
 router.put('/:id', (req, res, next) => {
-
-
     const cookieHeader = req.headers.cookie;
     console.log('cookieHeader: ', cookieHeader);
     // // parse the cookie header string into an object
