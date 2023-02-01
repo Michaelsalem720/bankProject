@@ -7,6 +7,7 @@ function Register() {
 
     const [userInfo, setUserInfo] = useState({ firstName: '', lastName: '', username: '', password: '', password2: '', email: '', phone: '', q1: '', a1: '', q2: '', a2: '', dob: '' });
     const [selectedQ1, setSelectedQ1] = useState('');
+
     const navigate = useNavigate();
     // const { setId } = useContext(UserContext);
 
@@ -25,32 +26,30 @@ function Register() {
     }
 
     async function handleSubmit(e) {
-        navigate('/login')
         e.preventDefault();
         switch (validateData()) {
             case 100:
                 return console.log(('missing field '));
-
-            default:
-                break;
-        }
-        // console.log(new Date(userInfo.dob) < new Date());
-       
-        try {
-            let Cookie= createCookie('name')
-            
-            let res = await fetch(`http://localhost:8080/people`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({userInfo:userInfo,Cookie:Cookie})
-            })
-            let data = await res.json();
-            console.log(data);
-        } catch (err) {
-            console.log('error: ', err);
-        }
+                
+                default:
+                    break;
+                }
+                // console.log(new Date(userInfo.dob) < new Date());
+                
+                try {
+                    let res = await fetch(`http://localhost:8080/people`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(userInfo)
+                    })
+                    let data = await res.json();
+                    console.log(data);
+                    navigate('/login')
+                } catch (err) {
+                    console.log('error: ', err);
+                }
     }
 
     function validateData() {
@@ -61,29 +60,9 @@ function Register() {
         else return 100;
     }
 
-    function createCookie(name) {
-        let date = new Date();
-        date.setTime(date.getTime() + (1 * 60 * 60 * 1000));
-        let expires = date.toUTCString();
-        let cName = Math.random() * Math.pow(10, 17).toString()
-        console.log(cName);
-        let cookie = `${name}=${cName}; expires=${expires}; path=/home`;
-        document.cookie = cookie;
-        return cookie
-    }
-async function deletes(){
-    let res = await fetch(`http://localhost:8080/people/delete`, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-
-    })
-}
     return (
-        
+
         <form onSubmit={handleSubmit}>
-            <button onClick={deletes}>delete</button>
             <label>{`First Name: `}
                 <input
                     type="text"
