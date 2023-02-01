@@ -6,9 +6,7 @@ let con = require('../DB/con')
 
 
 router.get('/', (req, res, next) => {
-    let sql = `SELECT * from secure_data`;
-    // .id FROM people JOIN passwords ON people.id = passwords.user_id
-    // WHERE deleted = 0 AND username = '${username}' AND password = '${password}'`
+    let sql = `SELECT username, password FROM secure_data JOIN people ON people.id = secure_data.user_id`
     con.query(sql, (err, result) => {
         if (err) {
             throw err
@@ -16,7 +14,15 @@ router.get('/', (req, res, next) => {
         res.json(result)
     })
 });
-
+router.get('/all', (req, res, next) => {
+    let sql = `SELECT * FROM secure_data JOIN people ON people.id = secure_data.user_id`
+    con.query(sql, (err, result) => {
+        if (err) {
+            throw err
+        }
+        res.json(result)
+    })
+});
 router.post('/:id', (req, res, next) => {
     console.log('req.cookies', req.cookies);
     let sql = `SELECT * from secure_data WHERE user_id = ${req.params.id}`
