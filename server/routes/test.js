@@ -6,7 +6,7 @@ let con = require('../DB/con')
 
 
 router.get('/', (req, res, next) => {
-    let sql = `SELECT * from people`;
+    let sql = `SELECT * from secure_data`;
     // .id FROM people JOIN passwords ON people.id = passwords.user_id
     // WHERE deleted = 0 AND username = '${username}' AND password = '${password}'`
     con.query(sql, (err, result) => {

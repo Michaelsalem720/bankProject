@@ -17,12 +17,12 @@ function Login() {
 
     async function login(e) {
         e.preventDefault();
-        let Cookie = createCookie('token')
+        let token = createCookie('token')
         try {
-            const response = await fetch("http://localhost:8080/login", {
-                method: "POST",
+            const response = await fetch("http://localhost:8080/people", {
+                method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ data: loginInfo, token: Cookie })
+                body: JSON.stringify({data:loginInfo,token:token})
             });
             const data = await response.json();
             if (data[0].id) {
@@ -45,13 +45,13 @@ function Login() {
         let date = new Date();
         date.setTime(date.getTime() + (1 * 60 * 60 * 1000));
         let expires = date.toUTCString();
-        let cName = Math.random() * Math.pow(10, 17).toString()
-        console.log(cName);
-        let cookie = `${name}=${cName}; expires=${expires}; path=${(document.location.pathname || "/")}`;
+        let token = Math.random() * Math.pow(10, 17).toString()
+        console.log(token);
+        let cookie = `${name}=${token}; expires=${expires}; path=${("/home")}`;
         document.cookie = cookie;
-        return cookie
+        return token
     }
-    
+
     return (
         <>
             <form onSubmit={login}>
@@ -66,8 +66,8 @@ function Login() {
                     </label>
                 </div>
                 <button type="submit">Login</button>
+                <button onClick={handleRegister}>Register</button>
             </form>
-            <button onClick={handleRegister}>Register</button>
         </>
     );
 }

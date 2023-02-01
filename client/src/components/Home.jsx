@@ -22,7 +22,7 @@ function Home() {
             <DepositChecks />
             <DownloadStatements />
             {/* <Chat /> */}
-            <SecSettings />
+            {/* <SecSettings /> */}
         </div>
     )
 }

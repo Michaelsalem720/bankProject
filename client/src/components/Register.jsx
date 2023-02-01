@@ -1,5 +1,4 @@
-import React, { useContext, useState } from "react";
-import { useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/userContext";
@@ -12,8 +11,6 @@ function Register() {
 
     useEffect(() => {
         setDataMsg(validateData());
-        // validateData()
-        console.log(userInfo);
     }, [userInfo])
     const navigate = useNavigate();
     // const { setId } = useContext(UserContext);
@@ -34,11 +31,12 @@ function Register() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        if (validateData()) {
-            postData();
-        }
-        else {
-            return "try again";
+        switch (validateData()) {
+            case false:
+                postData();
+                break;
+            default:
+                return
         }
     }
 
@@ -51,8 +49,10 @@ function Register() {
             })
             let data = await res.json();
             console.log(data);
+            navigate('/login');
         }
         catch (err) {
+            console.log('hi3');
             console.log('error: ', err);
         }
     }
