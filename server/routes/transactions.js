@@ -14,6 +14,17 @@ router.get('/', (req, res, next) => {
     })
 });
 
+router.put('/:id', (req, res, next) => {
+    let sql = `SELECT * FROM transactions`
+
+    con.query(sql, function (err, result) {
+        if (err) {
+            throw err
+        }
+        res.json(result)
+    })
+});
+
 // router.get('/', (req, res, next) => {
 //     let sql = `SELECT user_id, routing_number, account_number FROM accounts 
 //     JOIN people 

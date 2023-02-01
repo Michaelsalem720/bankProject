@@ -1,10 +1,13 @@
 import React, { useContext, useState } from "react";
 import UserContext from "../../context/userContext";
+import { useNavigate } from "react-router-dom";
+
 
 
 function Settings() {
     const [columnName, setColumnName] = useState();
     const [info, setInfo] = useState('');
+    const navigate = useNavigate();
 
     const { id } = useContext(UserContext)
     let userId = JSON.parse(sessionStorage.getItem('userId'))
@@ -31,6 +34,7 @@ function Settings() {
 
     function deletePerson(e) {
         e.preventDefault();
+        navigate("/login", { replace: true })
         fetch(`http://localhost:8080/people/${userId}`, {//need to change back to ${id}
             method: "DELETE",
             headers: {
