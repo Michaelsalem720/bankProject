@@ -16,7 +16,9 @@ function DepositChecks() {
     useEffect(() => {
         fetchMyAccounts();
     }, []);
+    useEffect(() => {
 
+    }, [formData.myAccount])
     let userId = sessionStorage.getItem("userId");
 
 
@@ -32,6 +34,7 @@ function DepositChecks() {
     };
     const handleChange = event => {
         setFormData({ ...formData, [event.target.name]: event.target.value });
+        console.log(formData.myAccount);
     };
 
     const handleSubmit = async (e) => {
@@ -75,17 +78,15 @@ function DepositChecks() {
                     <label>
                         Deposit Into:
                         <select
-                            name="toAccount"
-                            value={formData.toAccount}
+                            name="myAccount"
+                            value={formData.myAccount}
                             onChange={handleChange}
                         >
                             <option value="">Select an Account</option>
 
                             {myAccounts && myAccounts.length > 0 &&
                                 myAccounts.map(obj => (
-                                    <option key={obj.account} value={obj.account}>
-                                        {obj.account}
-                                    </option>
+                                    <option key={Math.random()} value={obj.account}>{obj.account}</option>
                                 ))}
                         </select>
                     </label>
@@ -110,6 +111,7 @@ function DepositChecks() {
                             name="foreignAccount"
                             value={formData.foreignAccount}
                             onChange={handleChange}
+                            maxLength='9'
                         />
                     </label>
                 </div>
@@ -121,7 +123,7 @@ function DepositChecks() {
                             name="routingNumber"
                             value={formData.routingNumber}
                             onChange={handleChange}
-                            maxLength ='9'
+                            maxLength='9'
                         />
                     </label>
                 </div>

@@ -7,7 +7,7 @@ import { Outlet, outlet } from 'react-router-dom'
 function Header() {
     return (
         <header id="main-header">
-            <h1 className="header-title">My Bank</h1>
+            <h1 className="header-title">Future First Bank</h1>
         </header>
 
     )

@@ -29,7 +29,6 @@ function MoveMoney() {
     };
 
     async function fetchMyAccounts() {
-        console.log('hello world');
         const res = await fetch(`http://localhost:8080/accounts/${userId}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },

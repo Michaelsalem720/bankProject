@@ -76,23 +76,30 @@
 
 import React, { useState } from 'react';
 
-const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const currentYear = new Date().getFullYear();
-let years = []
-for (let i = 0; i < 10; i++) {
-    years.push(currentYear - i);
-}
-
 const BankActionsAndStatements = () => {
     const [selectedMonth, setSelectedMonth] = useState(0);
     const [selectedYear, setSelectedYear] = useState(0);
 
+    let userId = sessionStorage.getItem("userId");
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const currentYear = new Date().getFullYear();
+    let years = []
+    for (let i = 0; i < 10; i++) {
+        years.push(currentYear - i);
+    }
+    async function download() {
+        let res = await fetch(`http://localhost:8080/transactions${userId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', },
+            body: JSON.stringify({ data: { month: selectedMonth, year: selectedYear }, cookie: document.cookie })
+        });
+    }
     return (
         <div>
             <h1>Bank Actions and Statements</h1>
             <select onChange={e => setSelectedMonth(e.target.value)}>
-                {months.map((month, index) => (
-                    <option key={index} value={index}>{month}</option>
+                {months.map((month, i) => (
+                    <option key={i} value={i}>{month}</option>
                 ))}
             </select>
             <select onChange={e => setSelectedYear(e.target.value)}>
@@ -101,6 +108,7 @@ const BankActionsAndStatements = () => {
                 ))}
             </select>
             <p>{`Selected date: ${months[selectedMonth]}-${years[selectedYear]}`}</p>
+            <button onClick={download}>Download</button>
         </div>
     );
 };

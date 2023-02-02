@@ -114,3 +114,7 @@ footer {
 #email_input{
   padding-left: 30px;
 }
+.tinyfont{
+  font-size: .5rem;
+  /* background-color: aqua; */
+}
