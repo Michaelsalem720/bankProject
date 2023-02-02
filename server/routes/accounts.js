@@ -11,6 +11,14 @@ router.get('/', (req, res, next) => {
     })
 })
 
+router.put('/:id', (req, res, next) => {
+    let sql = `SELECT * FROM accounts`;
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.json(result)
+    })
+})
+
 router.post('/:id', (req, res, next) => {
     // let cookie = req.body.cookie;
     let token = req.body.cookie.split("=")[1];
