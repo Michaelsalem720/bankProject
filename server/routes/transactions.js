@@ -32,28 +32,34 @@ router.post('/:id', (req, res, next) => {
     console.log(date);
     let token = req.body.cookie.split("=")[1];
     if (routingNumber === 102000123) { }
-
-    let sql = `INSERT INTO transactions (account_id, credit, debit, date, account_number, routing_number, check_number)
-    SELECT accounts.id, ${amount} AS credit, 0 AS debit, '${date}' AS date, ${accountNumber} AS account_number, ${routingNumber} AS routing_number, ${checkNumber} AS check_number
-    FROM secure_data
-    JOIN accounts ON secure_data.user_id = accounts.user_id
-    WHERE secure_data.user_id = ${req.params.id}
-    AND account_number = ${depositInto}
-    AND secure_data.token = '${token}'`
-    
-
-    // let sql = `INSERT INTO transactions (account_id, credit, debit, date, account_number, routing_number, check_number) 
-    // VALUES ()
-    // `
-    // let sql = `SELECT people.id FROM people JOIN passwords ON people.id = passwords.user_id
-    // WHERE deleted = 0 AND username = '${username}' AND password = '${password}'`
-    console.log(sql);
-    con.query(sql, (err, result) => {
-        if (err) throw err
+    let sql2 = `SELECT COUNT(*) AS count FROM transactions 
+    WHERE account_number = ${accountNumber} 
+    AND routing_number = ${routingNumber} 
+    AND check_number = ${checkNumber}`;
+    con.query(sql2, (err, result) => {
+        if (err) {
+            throw err
+        }
         console.log('result: ', result);
-        res.json(result)
-    })
-});
+        if (result[0].count === 0) {
+            let sql = `INSERT INTO transactions (account_id, credit, debit, date, account_number, routing_number, check_number)
+            SELECT accounts.id, ${amount} AS credit, 0 AS debit, '${date}' AS date, ${accountNumber} AS account_number, ${routingNumber} AS routing_number, ${checkNumber} AS check_number
+            FROM secure_data
+            JOIN accounts ON secure_data.user_id = accounts.user_id
+            WHERE secure_data.user_id = ${req.params.id}
+            AND account_number = ${depositInto}
+            AND secure_data.token = '${token}'`;
+            con.query(sql, (err, result) => {
+                if (err) throw err
+                console.log('result: ', result);
+                res.status(200).json({message: `Check ${checkNumber} deposited for $${amount}`})
+            })
+        }
+        else {
+            res.status(400).json({ message: 'You have already made this transaction' });
+        }
+    });
+})
 
 // router.get('/:account_id', (req, res, next) => {
 //     let sql = `SELECT account_id,credit,debit,date,account_number,routing_number,check_number
